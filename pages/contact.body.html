@@ -1,0 +1,82 @@
+<main id="main">
+
+  <section class="scene" data-hero data-theme="light" aria-labelledby="ct-h">
+    <div class="shell">
+      <p class="eb">Contact</p>
+      <h1 class="hl" id="ct-h"><span class="ln"><span>Invest with purpose.</span></span> <span class="ln mute"><span>Invest with style.</span></span></h1>
+      <p class="bd">Every engagement begins with a conversation about your objectives.</p>
+    </div>
+  </section>
+
+  <section class="scene" data-theme="light" aria-label="Reach the practice">
+    <div class="shell">
+      <div class="ct-grid">
+
+        <div class="ct-info">
+          <div data-r="it">
+            <span class="eb">Office</span>
+            Louki Akrita 8, Office 202<br />3030 Limassol, Cyprus
+          </div>
+          <div data-r="it">
+            <span class="eb">Telephone</span>
+            <a href="tel:+35725107444">+357 25 107 444</a>
+            <a href="tel:+35799344457">+357 99 344 457</a>
+          </div>
+          <div data-r="it">
+            <span class="eb">Email</span>
+            <a href="mailto:info@think.cy">info@think.cy</a>
+          </div>
+          <div data-r="it">
+            <span class="eb">Reach</span>
+            Cyprus, Greece, and the Middle East
+          </div>
+        </div>
+
+        <div class="panel" data-r="it">
+          <h2 class="ttl">Tell us what you are working toward.</h2>
+          <form class="cform" id="cform" action="{{FORMSPREE}}" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New consultation enquiry, thinkReal website" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="offscreen" aria-hidden="true" />
+
+            <p class="cform__alert" id="cformAlert" role="alert" hidden></p>
+
+            <div class="fld">
+              <label for="c-email">Your email <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="c-email" name="email" placeholder="name@company.com"
+                     autocomplete="email" required aria-describedby="c-email-err" />
+              <span class="fld__err" id="c-email-err" hidden></span>
+            </div>
+            <div class="fld">
+              <label for="c-name">Your full name <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="c-name" name="name" placeholder="First and last name"
+                     autocomplete="name" required aria-describedby="c-name-err" />
+              <span class="fld__err" id="c-name-err" hidden></span>
+            </div>
+            <div class="fld">
+              <label for="c-phone">Your phone <span class="fld__opt">optional</span></label>
+              <div class="fld--tel">
+                <input type="tel" id="c-phone" name="phone" placeholder="+357 99 344 457"
+                       inputmode="tel" autocomplete="tel" aria-describedby="c-phone-err" />
+              </div>
+              <span class="fld__err" id="c-phone-err" hidden></span>
+            </div>
+            <div class="fld">
+              <label for="c-message">What you are considering <span class="fld__opt">optional</span></label>
+              <textarea id="c-message" name="message" rows="4" autocomplete="off"
+                        placeholder="A little about the market, the budget, or the timeline you have in mind."
+                        aria-describedby="c-message-err"></textarea>
+              <span class="fld__err" id="c-message-err" hidden></span>
+            </div>
+            <button type="submit" class="btn" id="cformBtn">
+              <span class="cform__btnlabel">Send message</span>
+              <span class="ar" aria-hidden="true">&rarr;</span>
+            </button>
+            <p class="note">Fields marked * are required. By sending this form you agree to be contacted by Think Real about your enquiry. We keep your details private.</p>
+          </form>
+          <p class="cform__msg" id="cformMsg">Thank you. We have your details and will be in touch shortly, or write to us directly at <a href="mailto:info@think.cy">info@think.cy</a>.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
