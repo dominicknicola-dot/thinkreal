@@ -56,7 +56,7 @@
   /* Motion can leave the final keyframe on the element as an inline style.
      The resting state is already in the stylesheet, so once an entrance is
      over its inline styles are cleared: an inline opacity would otherwise
-     outrank rules that come later, like html.moved .cue. */
+     outrank a rule that comes later in the stylesheet. */
   function settle(a, els) {
     function clear() {
       els.forEach(function (el) { el.style.opacity = ""; el.style.transform = ""; });
@@ -412,18 +412,14 @@
   function copyLayers(hero) {
     var L = [];
     function add(sel, at, gap, mask) {
-      /* .cue is display:none below 1024, and animating something nobody can
-         see costs a phone real frames for nothing */
-      var els = [].slice.call(hero.querySelectorAll(sel)).filter(function (el) {
-        return el.getClientRects().length > 0;
-      });
+      var els = [].slice.call(hero.querySelectorAll(sel));
       if (els.length) L.push({ els: els, at: at, gap: gap, mask: !!mask });
     }
     add(".ln > span", 0, tok.stagger * 1.1, true);
     add(".bd", 0.30, tok.stagger * 0.8);
     add(".pick__lead, .pick__opt", 0.34, tok.stagger * 0.7);
     add(".btn", 0.50, tok.stagger * 0.6);
-    add(".eb, .cue", 0.58, tok.stagger * 0.8);
+    add(".eb", 0.58, tok.stagger * 0.8);
     return L;
   }
 
@@ -907,9 +903,6 @@
     wirePick(scope);
     openPage(scope);
   }
-  /* the scroll invitation is answered once, and then it goes */
-  window.addEventListener("scroll", function () { html.classList.add("moved"); }, { once: true, passive: true });
-
   if (isSPA) showRoute(routeFromHash());
   else start(doc);
   window.__trReady = true;

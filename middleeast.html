@@ -112,7 +112,6 @@ em{ font-style:normal; color:var(--accent); }
    continuation, so no heading is one uniform block */
 .hl .ln--sm{ font-size:var(--t-title); letter-spacing:-0.015em; line-height:1.25; }
 .dp .ln--sm{ font-size:var(--t-headline); letter-spacing:-0.03em; }
-.ttl{ font-size:var(--t-title); line-height:1.2; letter-spacing:-0.015em; font-weight:500; }
 .bd{ font-size:var(--t-body); line-height:1.6; color:var(--ink-2); max-width:var(--measure); text-wrap:pretty; }
 .sm{ font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
 .eb{ font-size:var(--t-label); line-height:1.4; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
@@ -315,9 +314,9 @@ html.js [data-hero].in .hero__stage{
   padding:0.04em 0.07em 0.17em; margin:-0.04em -0.07em -0.17em;
 }
 [data-hero] .ln > span{ display:block; }
-html.js [data-hero] :is(.eb, .ln > span, .bd, .btn, .pick__lead, .pick__opt, .cue){ opacity:0; }
+html.js [data-hero] :is(.eb, .ln > span, .bd, .btn, .pick__lead, .pick__opt){ opacity:0; }
 /* the fallback: one fade in the same order, if Motion is not there to stage it */
-html.js [data-hero].in-copy :is(.eb, .ln > span, .bd, .btn, .pick__lead, .pick__opt, .cue){
+html.js [data-hero].in-copy :is(.eb, .ln > span, .bd, .btn, .pick__lead, .pick__opt){
   opacity:1;
   transition:opacity var(--d-exit) var(--ease-enter);
   transition-delay:calc(var(--d, 0) * var(--stagger));
@@ -374,7 +373,6 @@ html.js .creed[data-live] .ln.on{ opacity:1; transform:none; transition:opacity 
 .pin__state .bd{ margin-top:var(--s3); }
 .pin__state .btn{ margin-top:var(--s4); }
 .pin .eb{ order:1; }
-.pin__hold{ order:1; margin-top:var(--s2); max-width:46ch; }
 .pin__state[data-state="0"]{ order:2; }
 .pin__plate[data-i="1"]{ order:3; } .pin__state[data-state="1"]{ order:4; }
 .pin__plate[data-i="2"]{ order:5; } .pin__state[data-state="2"]{ order:6; }
@@ -413,10 +411,8 @@ html.js .pin[data-pin] .pin__copy{
   width:100%; max-width:calc(var(--col) + 2 * var(--edge)); margin-inline:auto;
   padding:0 var(--edge) var(--s8);
 }
-html.js .pin[data-pin] .eb{ grid-row:1; }
-/* the frame's own line: it holds while the markets change under it */
-html.js .pin[data-pin] .pin__hold{ grid-row:2; margin:var(--s2) 0 var(--s5); max-width:46ch; }
-html.js .pin[data-pin] .pin__state{ grid-row:3; grid-column:1; pointer-events:none; }
+html.js .pin[data-pin] .eb{ grid-row:1; margin-bottom:var(--s5); }
+html.js .pin[data-pin] .pin__state{ grid-row:2; grid-column:1; pointer-events:none; }
 html.js .pin[data-pin] .pin__state.on{ pointer-events:auto; }
 html.js .pin[data-pin] .pin__state > *{
   opacity:0; transform:translateY(var(--rise));
@@ -433,8 +429,10 @@ html.js .pin[data-pin] .pin__state > :nth-child(3){ --d:2; }
 html.js .pin[data-pin] .pin__state .dp{ max-width:none; }
 /* justify-items:start sizes every child to fit-content, and a 35-character
    line written as one landed a hair inside its own max-content and broke in
-   two. The measure is the .bd's own max-width; the grid should not set it. */
-.pin__state .bd{ justify-self:stretch; }
+   two. The measure is the .bd's own max-width; the grid should not set it.
+   Over a photograph that measure is shorter than on the page: at 60ch this
+   paragraph ran 76 characters to the line. */
+.pin__state .bd{ justify-self:stretch; max-width:46ch; }
 html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate{ will-change:transform, scale, opacity; }
 /* the other two scroll-linked layers are promoted on the same terms: while the
    scene is live, and never at rest */
@@ -445,11 +443,14 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
    SCENE 5 · THE LIFECYCLE   ·   SCENE 6 · THE PRINCIPLES
    Two definition lists. No rows, no rules, no numbers.
    ============================================================ */
-.list{ display:grid; gap:var(--s6); margin-top:var(--s7); }
-.list dt{ font-size:var(--t-title); line-height:1.2; letter-spacing:-0.015em; font-weight:500; }
+.list{ display:grid; gap:var(--s6); margin-top:var(--s7); list-style:none; }
+.list dt, .list li{ font-size:var(--t-title); line-height:1.2; letter-spacing:-0.015em; font-weight:500; }
 .list dd{ margin-top:var(--s2); max-width:46ch; color:var(--ink-2); }
 @media (min-width:900px){
   .list--2{ grid-template-columns:1fr 1fr; column-gap:var(--s7); row-gap:var(--s7); }
+  /* side by side the description sets beside its term, not under it: the gap
+     that separates them when they stack would drop it half a line */
+  .list--2 dd{ margin-top:0; }
 }
 
 /* ============================================================
@@ -508,7 +509,7 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
 /* the single elevated surface on the site: it groups the form */
 .panel{ background:var(--surface); padding:var(--s6) var(--s5); }
 @media (max-width:767px){ .panel{ padding:var(--s5) var(--s3); } }
-form.cform{ display:grid; gap:var(--s4); margin-top:var(--s5); }
+form.cform{ display:grid; gap:var(--s4); }
 .fld{ display:grid; gap:var(--s1); }
 .fld label{ font-size:var(--t-label); font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-2); }
 .fld__opt{ margin-left:var(--s1); letter-spacing:.04em; text-transform:none; }
@@ -534,7 +535,6 @@ form.cform{ display:grid; gap:var(--s4); margin-top:var(--s5); }
 .cform__alert{ display:grid; gap:var(--s2); justify-items:start; padding:var(--s3); background:var(--bg); font-size:var(--t-small); line-height:1.5; }
 .cform__alertlink{ display:inline-flex; align-items:center; min-height:44px; font-weight:500; color:var(--accent); text-decoration:underline; text-underline-offset:.2em; }
 .cform .btn{ justify-self:start; margin-top:var(--s2); }
-.note{ margin-top:var(--s3); max-width:52ch; font-size:var(--t-small); line-height:1.5; color:var(--ink-2); }
 .cform__msg{ display:none; font-size:var(--t-title); line-height:1.3; letter-spacing:-0.015em; }
 .cform__msg.show{ display:block; }
 .cform__msg a{ color:var(--accent); text-decoration:underline; text-underline-offset:.2em; }
@@ -587,13 +587,6 @@ html.js.lifted :is(.brand, .nav__links a, .nav__cta){ opacity:1; transition:opac
   .pre{ display:none; }
 }
 
-/* the page says what to do next, once */
-.cue{
-  font-size:var(--t-label); font-weight:500; letter-spacing:0.32em; text-transform:uppercase; color:var(--ink-2);
-  transition:opacity 400ms var(--ease-move);
-}
-html.moved .cue{ opacity:0; }
-@media (max-width:1023px){ .cue{ display:none; } }
 
 /* ============================================================
    MASKED LABEL SWAP
@@ -616,26 +609,10 @@ a:focus-visible .sw > span + span, button:focus-visible .sw > span + span{ trans
 
 /* ============================================================
    THE HERO AS A COMPOSITION
-   Not one centred block: a lead that steps in on its second line,
-   and satellite labels held at the opposite edge.
+   Not one centred block: a lead that steps in on its second line.
    ============================================================ */
-.hero__side{ display:grid; gap:var(--s2); }
-.hero__side .eb{ color:var(--ink-2); }
 @media (min-width:1024px){
-  /* The satellites are held out of the flow, at the foot of the opposite edge.
-     As a grid column they took 330px off the headline and wrapped
-     "Intelligent investment." at 1920. Down here the scrim also carries
-     11px type: at the top of the frame the same labels measured 2.2:1. */
-  .hero__in{ position:relative; }
-  .hero__side{
-    position:absolute; right:var(--edge); bottom:0; z-index:1;
-    justify-items:end; text-align:right; gap:var(--s3);
-  }
   .hero .ln + .ln{ margin-left:1.6em; }   /* the second line steps in */
-}
-@media (max-width:1023px){
-  .hero__in{ display:flex; flex-direction:column; }
-  .hero__side{ order:2; margin-top:var(--s5); }   /* under the copy, in the band */
 }
 
 /* the toggle that lives inside the sentence */
@@ -681,7 +658,7 @@ a:focus-visible .sw > span + span, button:focus-visible .sw > span + span{ trans
               .pin__state > *, [data-hero] .hero__in > *, [data-hero] .eb,
               [data-hero] .ln, [data-hero] .ln > span, [data-hero] .bd,
               [data-hero] .pick, [data-hero] .pick__lead, [data-hero] .pick__opt,
-              [data-hero] .cue, [data-hero] .btn){
+              [data-hero] .btn){
     opacity:1 !important; scale:none !important;
     transform:none !important; transition:none !important;
   }
@@ -694,7 +671,7 @@ html.reveal-all :is([data-r], [data-r="md"] .frame img, .nav, .brand,
                     .nav__links a, .nav__cta, .creed .ln,
                     [data-hero] .hero__in > *, [data-hero] .eb, [data-hero] .ln,
                     [data-hero] .ln > span, [data-hero] .bd, [data-hero] .pick,
-                    [data-hero] .pick__lead, [data-hero] .pick__opt, [data-hero] .cue,
+                    [data-hero] .pick__lead, [data-hero] .pick__opt,
                     [data-hero] .btn, .hero__stage){
   opacity:1 !important; scale:none !important; transform:none !important;
 }
@@ -728,7 +705,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     <a href="greece.html"><span class="sw"><span>Greece</span><span aria-hidden="true">Greece</span></span></a>
     <a href="middleeast.html" aria-current="page"><span class="sw"><span>Middle East</span><span aria-hidden="true">Middle East</span></span></a>
   </div>
-  <a href="contact.html" class="nav__cta"><span class="sw"><span>Start a conversation</span><span aria-hidden="true">Start a conversation</span></span></a>
+  <a href="contact.html" class="nav__cta"><span class="sw"><span>Contact us</span><span aria-hidden="true">Contact us</span></span></a>
 </nav>
 
 <main id="main">
@@ -779,8 +756,20 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     </div>
   </section>
 
+  <!-- the marina arrives full width, once the differences have been set out -->
+  <section class="scene scene--flush" data-theme="light" aria-label="Dubai Marina">
+    <figure class="plate plate--band" data-r="md">
+      <div class="frame"><img data-k="memarina" src="media/memarina-1800.webp" srcset="media/memarina-1000.webp 1000w, media/memarina-1800.webp 1800w" sizes="100vw" width="1800" height="1013" alt="Dubai Marina from above: towers ranged around the water, the sea beyond" loading="lazy" /></div>
+      <figcaption class="shell">Dubai Marina from above. Representative of the region, not a Think Real property.</figcaption>
+    </figure>
+  </section>
+
   <section class="scene" data-theme="light" aria-label="The Middle East in view">
     <div class="shell">
+      <figure class="plate" data-r="md">
+        <div class="frame"><img data-k="mepromenade" src="media/mepromenade-1800.webp" srcset="media/mepromenade-1000.webp 1000w, media/mepromenade-1800.webp 1800w" sizes="(min-width: 1240px) 1180px, 92vw" width="1800" height="1200" alt="High-rise towers along the Dubai Marina waterfront, palms lining the promenade below" loading="lazy" /></div>
+        <figcaption>The promenade at the foot of the towers, Dubai Marina.</figcaption>
+      </figure>
       <figure class="plate plate--wide" data-r="md">
         <div class="frame"><img data-k="meterrace" src="media/meterrace-1800.webp" srcset="media/meterrace-1000.webp 1000w, media/meterrace-1800.webp 1800w" sizes="(min-width: 1240px) 1180px, 92vw" width="1800" height="900" alt="A shaded terrace on Palm Jumeirah looking along the water to the moored boats and the towers beyond" loading="lazy" /></div>
         <figcaption>A terrace above the water, Palm Jumeirah.</figcaption>
@@ -809,7 +798,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
       <p class="eb" data-r="eb">The consultation</p>
       <h2 class="hl" id="me-cta"><span class="ln" data-r="ln">Consider the region</span> <span class="ln ln--sm mute" data-r="ln">within a portfolio.</span></h2>
       <p class="bd" data-r="bd">A diversification layer, beside Cyprus and Greece.</p>
-      <a class="btn lead" href="contact.html" data-r="ct"><span class="sw"><span>Start a conversation</span><span aria-hidden="true">Start a conversation</span></span> <span class="ar" aria-hidden="true">&rarr;</span></a>
+      <a class="btn lead" href="contact.html" data-r="ct"><span class="sw"><span>Contact us</span><span aria-hidden="true">Contact us</span></span> <span class="ar" aria-hidden="true">&rarr;</span></a>
     </div>
   </section>
 </main>
@@ -896,7 +885,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
   /* Motion can leave the final keyframe on the element as an inline style.
      The resting state is already in the stylesheet, so once an entrance is
      over its inline styles are cleared: an inline opacity would otherwise
-     outrank rules that come later, like html.moved .cue. */
+     outrank a rule that comes later in the stylesheet. */
   function settle(a, els) {
     function clear() {
       els.forEach(function (el) { el.style.opacity = ""; el.style.transform = ""; });
@@ -1252,18 +1241,14 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
   function copyLayers(hero) {
     var L = [];
     function add(sel, at, gap, mask) {
-      /* .cue is display:none below 1024, and animating something nobody can
-         see costs a phone real frames for nothing */
-      var els = [].slice.call(hero.querySelectorAll(sel)).filter(function (el) {
-        return el.getClientRects().length > 0;
-      });
+      var els = [].slice.call(hero.querySelectorAll(sel));
       if (els.length) L.push({ els: els, at: at, gap: gap, mask: !!mask });
     }
     add(".ln > span", 0, tok.stagger * 1.1, true);
     add(".bd", 0.30, tok.stagger * 0.8);
     add(".pick__lead, .pick__opt", 0.34, tok.stagger * 0.7);
     add(".btn", 0.50, tok.stagger * 0.6);
-    add(".eb, .cue", 0.58, tok.stagger * 0.8);
+    add(".eb", 0.58, tok.stagger * 0.8);
     return L;
   }
 
@@ -1747,9 +1732,6 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     wirePick(scope);
     openPage(scope);
   }
-  /* the scroll invitation is answered once, and then it goes */
-  window.addEventListener("scroll", function () { html.classList.add("moved"); }, { once: true, passive: true });
-
   if (isSPA) showRoute(routeFromHash());
   else start(doc);
   window.__trReady = true;

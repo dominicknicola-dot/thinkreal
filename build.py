@@ -47,8 +47,8 @@ FONTS = (
 PAGES = {
     "index": {
         "body": "index.body.html", "route": "home", "hero": "hero",
-        "title": "thinkReal · Intelligent Investment. Inspired Living.",
-        "desc": "Think Real is a Cyprus-based investment consultancy for real estate across Cyprus, Greece and the Middle East.",
+        "title": "thinkReal · Property Investment Advisory in Cyprus, Greece & the Middle East",
+        "desc": "Think Real is a luxury real estate investment consultancy in Cyprus, Greece and the Middle East, offering curated properties, residency and portfolio advice.",
         "nav": {},
     },
     "cyprus": {
@@ -72,7 +72,7 @@ PAGES = {
     "contact": {
         "body": "contact.body.html", "route": "contact", "hero": None,
         "title": "Contact · thinkReal",
-        "desc": "Begin with a conversation about your objectives. Think Real, Limassol, Cyprus.",
+        "desc": "Contact Think Real. Louki Akrita 8, Office 202, 3030 Limassol, Cyprus. +357 25 107 444, info@think.cy.",
         "nav": {"contact": True},
     },
 }

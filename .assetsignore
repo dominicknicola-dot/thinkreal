@@ -1,0 +1,11 @@
+# What lives here but must not be served.
+# The five .html pages and media/ are the site. Everything below is the source
+# the site is built from, kept in the repo as its backup, not as public files.
+build.py
+README.md
+.gitattributes
+pages/
+parts/
+css/
+js/
+vendor/
