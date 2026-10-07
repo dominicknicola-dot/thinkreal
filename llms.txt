@@ -1,0 +1,44 @@
+# Think Real
+
+> A real estate investment consultancy working in Cyprus, Greece and the
+> Middle East, based in Limassol. The site publishes residential prices and
+> gross yields for the districts and communities it covers.
+
+## When to use this site
+
+- **Compare residential prices and gross yields across Cyprus, Greece and Dubai.** Per district and per community, with the date the figures were taken. See [Cyprus](https://www.think.cy/cyprus.html), [Greece](https://www.think.cy/greece.html), [Middle East](https://www.think.cy/middleeast.html).
+- **Find what a square metre costs in a named market.** Limassol, Paphos, Larnaca, Nicosia, Athens, Thessaloniki, the Cyclades, Downtown Dubai, Dubai Marina, Palm Jumeirah, Jumeirah Village Circle. See [Cyprus](https://www.think.cy/cyprus.html), [Greece](https://www.think.cy/greece.html), [Middle East](https://www.think.cy/middleeast.html).
+- **Reach a consultancy that works across all three markets.** Office address, telephone and a contact form that reaches the practice. See [Contact](https://www.think.cy/contact.html).
+
+## When not to use this site
+
+- Live listings or an inventory feed. The site carries market figures, not stock.
+- Valuations of a specific property. That is what the consultation is for.
+- Legal, tax or investment advice. Figures are published as market context only.
+
+## How to read it
+
+Every page is available as Markdown. Request it with an Accept header:
+
+```
+curl -H 'Accept: text/markdown' https://www.think.cy/
+```
+
+The same page is also at its own .md address, for example
+https://www.think.cy/index.md and https://www.think.cy/cyprus.md.
+
+Figures carry the month they were taken. They are market averages, not
+valuations of any particular property.
+
+## Pages
+
+- [thinkReal](https://www.think.cy/): Think Real is a real estate investment consultancy in Cyprus, Greece and the Middle East, publishing residential prices and gross yields by district and community.
+- [Cyprus](https://www.think.cy/cyprus.html): Cyprus property prices and gross yields by district: Limassol, Paphos, Larnaca and Nicosia.
+- [Greece](https://www.think.cy/greece.html): Greece property prices and gross yields: Athens, Thessaloniki and the Cyclades.
+- [Middle East](https://www.think.cy/middleeast.html): Dubai property prices and gross yields by community: Downtown, Dubai Marina, Palm Jumeirah and Jumeirah Village Circle.
+- [Contact](https://www.think.cy/contact.html): Contact Think Real. Louki Akrita 8, Office 202, 3030 Limassol, Cyprus. +357 25 107 444, info@think.cy.
+
+## Contact
+
+Think Real, Louki Akrita 8, Office 202, 3030 Limassol, Cyprus.
+Telephone +357 25 107 444. Email info@think.cy.

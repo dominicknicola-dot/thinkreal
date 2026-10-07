@@ -1,0 +1,26 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "accept",
+          "value": ".*text/markdown.*"
+        }
+      ],
+      "destination": "/api/md?p=/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/((?!media/).*)",
+      "headers": [
+        {
+          "key": "Vary",
+          "value": "Accept"
+        }
+      ]
+    }
+  ]
+}
