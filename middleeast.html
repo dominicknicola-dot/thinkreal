@@ -62,6 +62,9 @@
 /* the phone is re-timed, not compressed */
 @media (max-width:767px){
   :root{ --d-enter:640ms; --d-media:800ms; --d-plate:1000ms; --stagger:90ms; --rise:20px; }
+  /* and the rhythm does tighten: at 88px a section the home page ran to
+     11.6 screens of scrolling. Desktop keeps its air; a thumb does not. */
+  :root{ --section:3.5rem; }
 }
 
 /* ---- the dark scope: the same five tokens, re-valued ---- */
@@ -226,7 +229,17 @@ html.js [data-r="md"].in figcaption{ opacity:1; }
   .nav{ grid-template-columns:1fr auto; row-gap:0; padding-block:calc(var(--s1) + env(safe-area-inset-top, 0px)) var(--s1); }
   .nav__links{ grid-column:1 / -1; grid-row:2; justify-self:start; gap:var(--s4); }
 }
-@media (max-width:380px){ .nav__links{ gap:var(--s3); } }
+/* on a phone the bar came to 104px, a permanent eighth of the screen, because
+   the regions sat on their own row under the brand. The regions are the
+   navigation; the contact link is repeated in the hero and at the foot of
+   every page, so it is the one that gives up its place. */
+@media (max-width:620px){
+  .nav{ grid-template-columns:auto 1fr; align-items:center; }
+  .nav__links{ grid-column:2; grid-row:1; justify-self:end; gap:var(--s2); }
+  .nav__cta{ display:none; }
+  .brand{ font-size:var(--t-small); }
+}
+@media (max-width:380px){ .nav__links{ gap:var(--s1); } }
 
 
 /* ============================================================
@@ -467,6 +480,22 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
   .register dd{ grid-column:2; margin-top:0; }
 }
 
+/* On a phone six rows came to 1180px, and an even gap set each label as far
+   from its own number as from the next pair. The pair is the unit: the gap
+   goes between pairs, not inside one. */
+@media (max-width:767px){
+  .register{ gap:0; margin-top:var(--s5); }
+  .register dt + dd{ margin-top:var(--s1); }
+  .register dd + dt{ margin-top:var(--s4); }
+  .stack dd{ margin:var(--s1) 0 var(--s4); }
+  .horizon{ gap:var(--s3); margin-top:var(--s5); }
+  .list{ gap:var(--s5); margin-top:var(--s5); }
+  .panels{ gap:var(--s7); margin-top:var(--s6); }
+  .plate{ margin-top:var(--s6); }
+  /* large type scrolling under a 78% wash read as a smear */
+  .nav.solid::before{ background:color-mix(in srgb, var(--bg) 94%, transparent); }
+}
+
 /* GREECE · the horizon. The facts run as level lines, stepping out to the
    right, so the page reads along rather than down. */
 .horizon{ display:grid; gap:var(--s4); margin-top:var(--s6); }
@@ -629,6 +658,13 @@ a:focus-visible .sw > span + span, button:focus-visible .sw > span + span{ trans
 }
 @media (hover:hover) and (pointer:fine){ .pick__opt:hover{ color:var(--ink); } }
 @media (hover:none), (pointer:coarse){ .pick__opt{ min-height:44px; } }
+/* the lead ran onto the first line and left one market stranded beside it,
+   with the other two below. It takes a line of its own and the three
+   markets stay together, which is the choice being offered. */
+@media (max-width:620px){
+  .pick{ gap:var(--s1) var(--s2); margin-top:var(--s4); }
+  .pick__lead{ flex:0 0 100%; }
+}
 
 /* ============================================================
    THE CLOSING PANELS
@@ -717,7 +753,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     <div class="hero__in">
       <p class="eb">Metropolitan</p>
       <h1 class="dp" id="me-h"><span class="ln"><span>Middle</span></span> <span class="ln"><span>East</span></span></h1>
-      <p class="bd">Approached city by city, not as one market.</p>
+      <p class="bd">One city at a time.</p>
     </div>
   </header>
 
@@ -727,12 +763,12 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
       <div class="split">
         <div>
           <p class="eb" data-r="eb">The case</p>
-          <h2 class="hl" id="me-case"><span class="ln" data-r="ln">One region,</span> <span class="ln mute" data-r="ln">read city by city.</span></h2>
-          <p class="bd" data-r="bd">Growth and lifestyle converge here. The rules do not.</p>
+          <h2 class="hl" id="me-case"><span class="ln" data-r="ln">Not one market.</span> <span class="ln mute" data-r="ln">Read it city by city.</span></h2>
+          <p class="bd" data-r="bd">Each city sets its own rules.</p>
         </div>
         <figure class="plate plate--tall" data-r="md">
           <div class="frame"><img data-k="tower" src="media/tower-1100.webp" srcset="media/tower-700.webp 700w, media/tower-1100.webp 1100w" sizes="(min-width: 1024px) 480px, 92vw" width="1100" height="1650" alt="A contemporary residential tower with curved balconies against a pale sky" loading="lazy" /></div>
-          <figcaption>Contemporary residential tower. Representative of the region.</figcaption>
+          <figcaption>A residential tower in the Gulf.</figcaption>
         </figure>
       </div>
     </div>
@@ -754,7 +790,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
         <dt data-r="it">The city</dt>
         <dd data-r="it">Median AED 1,731 per square foot. 91,214 transactions worth AED 301 billion in 2026.</dd>
       </dl>
-      <p class="disclaim" data-r="bd">Figures as at October 2026, from Dubai Land Department transaction data. Net yield runs roughly 1.5 to 2.5 points below gross once service charges are paid. Imagery represents the region and does not depict a specific Think Real property.</p>
+      <p class="disclaim" data-r="bd">Figures from October 2026, Dubai Land Department. Net yield is 1.5 to 2.5 points below gross after service charges. Photographs show the region, not our listings.</p>
     </div>
   </section>
 
@@ -762,7 +798,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
   <section class="scene scene--flush" data-theme="light" aria-label="Dubai Marina">
     <figure class="plate plate--band" data-r="md">
       <div class="frame"><img data-k="memarina" src="media/memarina-1800.webp" srcset="media/memarina-1000.webp 1000w, media/memarina-1800.webp 1800w" sizes="100vw" width="1800" height="1013" alt="Dubai Marina from above: towers ranged around the water, the sea beyond" loading="lazy" /></div>
-      <figcaption class="shell">Dubai Marina from above. Representative of the region, not a Think Real property.</figcaption>
+      <figcaption class="shell">Dubai Marina from above.</figcaption>
     </figure>
   </section>
 
@@ -798,8 +834,8 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
   <section class="scene" data-theme="dark" aria-labelledby="me-cta">
     <div class="shell">
       <p class="eb" data-r="eb">The consultation</p>
-      <h2 class="hl" id="me-cta"><span class="ln" data-r="ln">Consider the region</span> <span class="ln ln--sm mute" data-r="ln">within a portfolio.</span></h2>
-      <p class="bd" data-r="bd">A diversification layer, beside Cyprus and Greece.</p>
+      <h2 class="hl" id="me-cta"><span class="ln" data-r="ln">Talk to us</span> <span class="ln ln--sm mute" data-r="ln">about Dubai.</span></h2>
+      <p class="bd" data-r="bd">High yields, no property tax.</p>
       <a class="btn lead" href="contact.html" data-r="ct"><span class="sw"><span>Contact us</span><span aria-hidden="true">Contact us</span></span> <span class="ar" aria-hidden="true">&rarr;</span></a>
     </div>
   </section>

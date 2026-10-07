@@ -62,6 +62,9 @@
 /* the phone is re-timed, not compressed */
 @media (max-width:767px){
   :root{ --d-enter:640ms; --d-media:800ms; --d-plate:1000ms; --stagger:90ms; --rise:20px; }
+  /* and the rhythm does tighten: at 88px a section the home page ran to
+     11.6 screens of scrolling. Desktop keeps its air; a thumb does not. */
+  :root{ --section:3.5rem; }
 }
 
 /* ---- the dark scope: the same five tokens, re-valued ---- */
@@ -226,7 +229,17 @@ html.js [data-r="md"].in figcaption{ opacity:1; }
   .nav{ grid-template-columns:1fr auto; row-gap:0; padding-block:calc(var(--s1) + env(safe-area-inset-top, 0px)) var(--s1); }
   .nav__links{ grid-column:1 / -1; grid-row:2; justify-self:start; gap:var(--s4); }
 }
-@media (max-width:380px){ .nav__links{ gap:var(--s3); } }
+/* on a phone the bar came to 104px, a permanent eighth of the screen, because
+   the regions sat on their own row under the brand. The regions are the
+   navigation; the contact link is repeated in the hero and at the foot of
+   every page, so it is the one that gives up its place. */
+@media (max-width:620px){
+  .nav{ grid-template-columns:auto 1fr; align-items:center; }
+  .nav__links{ grid-column:2; grid-row:1; justify-self:end; gap:var(--s2); }
+  .nav__cta{ display:none; }
+  .brand{ font-size:var(--t-small); }
+}
+@media (max-width:380px){ .nav__links{ gap:var(--s1); } }
 
 
 /* ============================================================
@@ -467,6 +480,22 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
   .register dd{ grid-column:2; margin-top:0; }
 }
 
+/* On a phone six rows came to 1180px, and an even gap set each label as far
+   from its own number as from the next pair. The pair is the unit: the gap
+   goes between pairs, not inside one. */
+@media (max-width:767px){
+  .register{ gap:0; margin-top:var(--s5); }
+  .register dt + dd{ margin-top:var(--s1); }
+  .register dd + dt{ margin-top:var(--s4); }
+  .stack dd{ margin:var(--s1) 0 var(--s4); }
+  .horizon{ gap:var(--s3); margin-top:var(--s5); }
+  .list{ gap:var(--s5); margin-top:var(--s5); }
+  .panels{ gap:var(--s7); margin-top:var(--s6); }
+  .plate{ margin-top:var(--s6); }
+  /* large type scrolling under a 78% wash read as a smear */
+  .nav.solid::before{ background:color-mix(in srgb, var(--bg) 94%, transparent); }
+}
+
 /* GREECE · the horizon. The facts run as level lines, stepping out to the
    right, so the page reads along rather than down. */
 .horizon{ display:grid; gap:var(--s4); margin-top:var(--s6); }
@@ -629,6 +658,13 @@ a:focus-visible .sw > span + span, button:focus-visible .sw > span + span{ trans
 }
 @media (hover:hover) and (pointer:fine){ .pick__opt:hover{ color:var(--ink); } }
 @media (hover:none), (pointer:coarse){ .pick__opt{ min-height:44px; } }
+/* the lead ran onto the first line and left one market stranded beside it,
+   with the other two below. It takes a line of its own and the three
+   markets stay together, which is the choice being offered. */
+@media (max-width:620px){
+  .pick{ gap:var(--s1) var(--s2); margin-top:var(--s4); }
+  .pick__lead{ flex:0 0 100%; }
+}
 
 /* ============================================================
    THE CLOSING PANELS
@@ -717,7 +753,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     <div class="hero__in">
       <p class="eb">Coastal</p>
       <h1 class="dp" id="gr-h"><span class="ln"><span>Greece</span></span></h1>
-      <p class="bd">A mainland and its islands, long familiar to owners from abroad.</p>
+      <p class="bd">The mainland and the islands.</p>
     </div>
   </header>
 
@@ -725,13 +761,13 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
   <section class="scene scene--flush" data-theme="light" aria-label="The Greek coast">
     <figure class="plate plate--band" data-r="md">
       <div class="frame"><img data-k="greecetown" src="media/greecetown-1800.webp" srcset="media/greecetown-900.webp 900w, media/greecetown-1600.webp 1600w, media/greecetown-1800.webp 1800w" sizes="100vw" width="1800" height="1012" alt="Houses set along a turquoise bay on the Greek coast at Plitra, seen from the air" loading="lazy" /></div>
-      <figcaption class="shell">Houses above the bay, Plitra. Representative of the region, not a Think Real property.</figcaption>
+      <figcaption class="shell">Plitra, on the Greek coast.</figcaption>
     </figure>
   </section>
 
   <section class="scene" data-theme="light" aria-labelledby="gr-case">
     <div class="shell">
-      <h2 class="hl" id="gr-case"><span class="ln" data-r="ln">Coastline,</span> <span class="ln ln--sm mute" data-r="ln">at the scale of a continent.</span></h2>
+      <h2 class="hl" id="gr-case"><span class="ln" data-r="ln">More coastline</span> <span class="ln ln--sm mute" data-r="ln">than anywhere in Europe.</span></h2>
       <!-- the facts run as lines, not a table: the page reads horizontally -->
       <div class="horizon">
         <p data-r="it">Athens, the municipality: €2,560 per square metre asking, up 2.6% on the year.</p>
@@ -739,7 +775,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
         <p data-r="it">The Cyclades: the most expensive rentals in Greece. Mykonos runs €7,500 to €18,000 per square metre, Santorini €4,500 to €7,500.</p>
         <p data-r="it">Gross yield nationally: 4.4%. Rents up 3.8% over the year.</p>
       </div>
-      <p class="disclaim" data-r="bd">Figures as at October 2026, from Bank of Greece data and published asking prices. Averages hide a wide spread: ask us what a specific building is worth.</p>
+      <p class="disclaim" data-r="bd">Figures from October 2026. Averages only. Ask us what a specific property is worth.</p>
     </div>
   </section>
 
@@ -747,7 +783,11 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     <div class="shell">
       <figure class="plate" data-r="md">
         <div class="frame"><img data-k="grhouse" src="media/grhouse-1800.webp" srcset="media/grhouse-1000.webp 1000w, media/grhouse-1800.webp 1800w" sizes="(min-width: 1240px) 1180px, 92vw" width="1800" height="1200" alt="A house in pale stone and white render standing above the sea, low planting across the slope below" loading="lazy" /></div>
-        <figcaption>A house in stone and white render, above the water. Representative of the region, not a Think Real property.</figcaption>
+        <figcaption>A house above the water.</figcaption>
+      </figure>
+      <figure class="plate" data-r="md">
+        <div class="frame"><img data-k="residence" src="media/residence-1600.webp" srcset="media/residence-900.webp 900w, media/residence-1600.webp 1600w" sizes="(min-width: 1240px) 1180px, 92vw" width="1600" height="1195" alt="A low contemporary house in concrete and timber behind a gravel forecourt, an olive tree beside it" loading="lazy" /></div>
+        <figcaption>A contemporary house inland.</figcaption>
       </figure>
       <figure class="plate plate--wide" data-r="md">
         <div class="frame"><img data-k="cardgreece" src="media/cardgreece-1800.webp" srcset="media/cardgreece-1000.webp 1000w, media/cardgreece-1800.webp 1800w" sizes="(min-width: 1240px) 1180px, 92vw" width="1800" height="1013" alt="Whitewashed Cycladic houses stacked down a Santorini hillside" loading="lazy" /></div>
@@ -775,8 +815,8 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
   <section class="scene" data-theme="dark" aria-labelledby="gr-cta">
     <div class="shell">
       <p class="eb" data-r="eb">The consultation</p>
-      <h2 class="hl" id="gr-cta"><span class="ln" data-r="ln">Consider Greece</span> <span class="ln ln--sm mute" data-r="ln">within a portfolio.</span></h2>
-      <p class="bd" data-r="bd">Coastal property, at the scale of a continent.</p>
+      <h2 class="hl" id="gr-cta"><span class="ln" data-r="ln">Talk to us</span> <span class="ln ln--sm mute" data-r="ln">about Greece.</span></h2>
+      <p class="bd" data-r="bd">Coastal property, from the mainland to the islands.</p>
       <a class="btn lead" href="contact.html" data-r="ct"><span class="sw"><span>Contact us</span><span aria-hidden="true">Contact us</span></span> <span class="ar" aria-hidden="true">&rarr;</span></a>
     </div>
   </section>

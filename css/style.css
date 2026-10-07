@@ -50,6 +50,9 @@
 /* the phone is re-timed, not compressed */
 @media (max-width:767px){
   :root{ --d-enter:640ms; --d-media:800ms; --d-plate:1000ms; --stagger:90ms; --rise:20px; }
+  /* and the rhythm does tighten: at 88px a section the home page ran to
+     11.6 screens of scrolling. Desktop keeps its air; a thumb does not. */
+  :root{ --section:3.5rem; }
 }
 
 /* ---- the dark scope: the same five tokens, re-valued ---- */
@@ -214,7 +217,17 @@ html.js [data-r="md"].in figcaption{ opacity:1; }
   .nav{ grid-template-columns:1fr auto; row-gap:0; padding-block:calc(var(--s1) + env(safe-area-inset-top, 0px)) var(--s1); }
   .nav__links{ grid-column:1 / -1; grid-row:2; justify-self:start; gap:var(--s4); }
 }
-@media (max-width:380px){ .nav__links{ gap:var(--s3); } }
+/* on a phone the bar came to 104px, a permanent eighth of the screen, because
+   the regions sat on their own row under the brand. The regions are the
+   navigation; the contact link is repeated in the hero and at the foot of
+   every page, so it is the one that gives up its place. */
+@media (max-width:620px){
+  .nav{ grid-template-columns:auto 1fr; align-items:center; }
+  .nav__links{ grid-column:2; grid-row:1; justify-self:end; gap:var(--s2); }
+  .nav__cta{ display:none; }
+  .brand{ font-size:var(--t-small); }
+}
+@media (max-width:380px){ .nav__links{ gap:var(--s1); } }
 
 
 /* ============================================================
@@ -455,6 +468,22 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
   .register dd{ grid-column:2; margin-top:0; }
 }
 
+/* On a phone six rows came to 1180px, and an even gap set each label as far
+   from its own number as from the next pair. The pair is the unit: the gap
+   goes between pairs, not inside one. */
+@media (max-width:767px){
+  .register{ gap:0; margin-top:var(--s5); }
+  .register dt + dd{ margin-top:var(--s1); }
+  .register dd + dt{ margin-top:var(--s4); }
+  .stack dd{ margin:var(--s1) 0 var(--s4); }
+  .horizon{ gap:var(--s3); margin-top:var(--s5); }
+  .list{ gap:var(--s5); margin-top:var(--s5); }
+  .panels{ gap:var(--s7); margin-top:var(--s6); }
+  .plate{ margin-top:var(--s6); }
+  /* large type scrolling under a 78% wash read as a smear */
+  .nav.solid::before{ background:color-mix(in srgb, var(--bg) 94%, transparent); }
+}
+
 /* GREECE · the horizon. The facts run as level lines, stepping out to the
    right, so the page reads along rather than down. */
 .horizon{ display:grid; gap:var(--s4); margin-top:var(--s6); }
@@ -617,6 +646,13 @@ a:focus-visible .sw > span + span, button:focus-visible .sw > span + span{ trans
 }
 @media (hover:hover) and (pointer:fine){ .pick__opt:hover{ color:var(--ink); } }
 @media (hover:none), (pointer:coarse){ .pick__opt{ min-height:44px; } }
+/* the lead ran onto the first line and left one market stranded beside it,
+   with the other two below. It takes a line of its own and the three
+   markets stay together, which is the choice being offered. */
+@media (max-width:620px){
+  .pick{ gap:var(--s1) var(--s2); margin-top:var(--s4); }
+  .pick__lead{ flex:0 0 100%; }
+}
 
 /* ============================================================
    THE CLOSING PANELS
