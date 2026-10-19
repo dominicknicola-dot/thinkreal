@@ -14,15 +14,27 @@ The mainland and the islands.
 
 ## More coastline than anywhere in Europe.
 
-Athens, the municipality: €2,560 per square metre asking, up 2.6% on the year.
+**Athens**
 
-Thessaloniki: €2,558 per square metre, up 12.5%, the fastest of the large cities.
+€2,560per m² asking+2.6%on the year
 
-The Cyclades: the most expensive rentals in Greece. Mykonos runs €7,500 to €18,000 per square metre, Santorini €4,500 to €7,500.
+**Thessaloniki**
 
-Gross yield nationally: 4.4%. Rents up 3.8% over the year.
+€2,558per m²+12.5%on the year
 
-Figures from October 2026. Averages only. Ask us what a specific property is worth.
+**Mykonos**
+
+€7,500 to 18,000per m²
+
+**Santorini**
+
+€4,500 to 7,500per m²
+
+**Nationally**
+
+4.4%gross yield+3.8%rents, on the year
+
+Thessaloniki is the fastest moving of the large cities, and the Cyclades carry the most expensive rentals in the country. Figures from October 2026. Averages only: ask us what a specific property is worth.
 
 ![A house in pale stone and white render standing above the sea, low planting across the slope below](https://www.think.cy/media/grhouse-1800.webp)
 

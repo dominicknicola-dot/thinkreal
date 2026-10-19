@@ -504,6 +504,50 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
   .nav.solid::before{ background:color-mix(in srgb, var(--bg) 94%, transparent); }
 }
 
+/* ============================================================
+   FIGURES
+   The numbers were set as sentences: six paragraphs of title-size prose
+   with ragged line counts, which on a phone is a wall rather than data.
+   A figure is a name, a number and a yield. The number carries the accent,
+   which is the only colour on the page and now earns its place; the units
+   recede. Tabular numerals so the column holds its shape.
+   ============================================================ */
+.figures{ display:grid; gap:var(--s4); margin-top:var(--s6); }
+.fig__k{
+  font-size:var(--t-label); font-weight:500; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--ink-2);
+}
+.fig__v{
+  display:flex; flex-wrap:wrap; align-items:baseline;
+  gap:var(--s1) var(--s4); margin-top:var(--s2);
+}
+.fig__n{
+  font-size:var(--t-title); line-height:1.1; letter-spacing:-0.02em;
+  font-variant-numeric:tabular-nums; color:var(--accent);
+}
+.fig__y{
+  font-size:var(--t-body); line-height:1.2;
+  font-variant-numeric:tabular-nums; color:var(--ink);
+}
+.fig__u{ font-size:var(--t-small); color:var(--ink-2); margin-left:.45em; }
+/* the second half of the row sits away from the first on a wide screen,
+   and simply follows it on a narrow one */
+@media (min-width:600px){
+  .fig__v{ flex-wrap:nowrap; justify-content:space-between; }
+  .fig__y{ text-align:right; white-space:nowrap; }
+}
+@media (min-width:900px){
+  .figures{ gap:var(--s5); }
+  .fig{ display:grid; grid-template-columns:minmax(0,13rem) minmax(0,1fr); column-gap:var(--s7); align-items:baseline; }
+  /* space-between across the full column put 550px of nothing between the
+     price and its yield. The pair is capped so they stay one reading. */
+  .fig__v{ margin-top:0; max-width:34rem; }
+}
+.fig__note{
+  margin-top:var(--s3); max-width:52ch;
+  font-size:var(--t-small); line-height:1.5; color:var(--ink-2);
+}
+
 /* GREECE · the horizon. The facts run as level lines, stepping out to the
    right, so the page reads along rather than down. */
 .horizon{ display:grid; gap:var(--s4); margin-top:var(--s6); }

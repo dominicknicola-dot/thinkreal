@@ -1,3 +1,4 @@
+await new Promise(r => setTimeout(r, 3000));
 const H = document.documentElement.scrollHeight;
 for (let y = 0; y < H; y += innerHeight * 0.7) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 320)); }
 await new Promise(r => setTimeout(r, 1000));

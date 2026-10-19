@@ -8,7 +8,7 @@ Source: https://www.think.cy/middleeast.html
 
 ![Downtown Dubai in daylight: the Burj Khalifa above the Sheikh Zayed Road interchange](https://www.think.cy/media/middleeast-1920.webp)
 
-One city at a time.
+Dubai, and the wider Gulf.
 
 ## Not one market. Read it city by city.
 
@@ -20,25 +20,25 @@ Dubai prices and yields, by community
 
 **Downtown Dubai**
 
-AED 3,011 per square foot, about 80% above the city median. Gross yield 4% to 6.5%.
+AED 3,011per sq ft4.0 to 6.5%gross yield
 
 **Dubai Marina**
 
-AED 2,058 per square foot. Gross yield 5% to 7%. Growth has flattened this year.
+AED 2,058per sq ft5.0 to 7.0%gross yield
 
 **Palm Jumeirah**
 
-Villas above AED 4,200 per square foot, up 18.4% over twelve months.
+AED 4,200per sq ft, villas+18.4%over 12 months
 
 **Jumeirah Village Circle**
 
-AED 850 per square foot and 8.1% gross, the highest yield and the highest volume in the city.
+AED 850per sq ft8.1%gross yield
 
-**The city**
+**City median**
 
-Median AED 1,731 per square foot. 91,214 transactions worth AED 301 billion in 2026.
+AED 1,731per sq ft91,214sales in 2026
 
-Figures from October 2026, Dubai Land Department. Net yield is 1.5 to 2.5 points below gross after service charges. Photographs show the region, not our listings.
+Jumeirah Village Circle carries the highest yield and the highest volume in the city; Marina growth has flattened this year. Net yield runs 1.5 to 2.5 points below gross once service charges are paid. Dubai Land Department, October 2026.
 
 ![Dubai Marina from above: towers ranged around the water, the sea beyond](https://www.think.cy/media/memarina-1800.webp)
 

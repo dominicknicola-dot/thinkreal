@@ -629,7 +629,7 @@
         window.clearTimeout(this.wasTimer);
         this.wasTimer = window.setTimeout(function () {
           plates.forEach(function (p) { p.classList.remove("was"); });
-        }, 760);
+        }, 1280);
         if (count) count.textContent = i ? "0" + i + " / 03" : "";
       },
       update: function (y) {
@@ -694,14 +694,14 @@
      ============================================================ */
   /* the whole opening, on one clock (seconds) */
   var T = {
-    word: 0.30,     /* the mark resolves                            */
-    rule: 0.46,     /* the line draws out from the middle           */
-    ruleAt: 0.14,   /* and starts just after the mark               */
-    stage: 0.46,    /* the photograph starts growing underneath     */
-    part: 0.72,     /* the two grounds begin to part                */
-    partRun: 0.82,  /* and how long they take to clear              */
-    nav: 1.12,      /* the nav's parts arrive                       */
-    copy: 1.20,     /* the first headline line rises                */
+    word: 0.46,     /* the mark resolves                            */
+    rule: 0.78,     /* the line draws out from the middle           */
+    ruleAt: 0.26,   /* and starts just after the mark               */
+    stage: 0.80,    /* the photograph starts growing underneath     */
+    part: 1.22,     /* the two grounds begin to part                */
+    partRun: 1.15,  /* and how long they take to clear              */
+    nav: 1.95,      /* the nav's parts arrive                       */
+    copy: 2.05,     /* the first headline line rises                */
     stageFade: 0.7, /* the photograph's own fade                    */
     stageGrow: 1.9  /* and its settle, the longest thing on screen  */
   };
@@ -752,8 +752,8 @@
       /* transitions only: the mark shows, the line draws, the grounds part */
       if (word) word.style.opacity = "1";
       if (rule) {
-        rule.style.transition = "transform 460ms " + "cubic-bezier(0.4,0,0.2,1)";
-        window.setTimeout(function () { rule.style.transform = "scaleX(1)"; }, 120);
+        rule.style.transition = "transform 780ms " + "cubic-bezier(0.4,0,0.2,1)";
+        window.setTimeout(function () { rule.style.transform = "scaleX(1)"; }, 220);
       }
       window.setTimeout(function () {
         pre.classList.add("done", "lift");
@@ -761,7 +761,7 @@
         openStage(hero);
         window.setTimeout(function () { openCopy(hero, 0); }, 260);
         window.setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1000);
-      }, 760);
+      }, 1280);
       return;
     }
 
@@ -842,7 +842,7 @@
     requestAnimationFrame(begin);
     window.setTimeout(begin, 500);
     /* nothing may ever sit behind a curtain because a frame did not come */
-    window.setTimeout(endOpening, 3600);
+    window.setTimeout(endOpening, 5400);
   }
 
   /* The market named in the sentence is the plate you see. Three real
