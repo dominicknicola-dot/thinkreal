@@ -58,51 +58,19 @@ Discover the Middle EastDiscover the Middle East →
 
 ## Services
 
-With deep market insight in Cyprus, Greece and the Middle East, we blend financial intelligence with lifestyle vision, ensuring every investment delivers both profitability and pleasure.
-
 **Strategic investment consulting**
-
-We analyze your goals and create a tailored strategy to maximize returns while minimizing risk. Our advice is always personal, precise, and based on real market intelligence.
 
 **Exclusive property sourcing**
 
-Gain access to premium properties: beachfront villas, urban penthouses, and investment-grade developments, many not available on the open market.
-
 **Portfolio optimization**
-
-We help you build and manage a balanced real estate portfolio that delivers sustainable returns and long-term capital growth.
 
 **Residency & citizenship by investment**
 
-Our consultants provide guidance through property-based residency and citizenship programs, unlocking access to Europe and beyond.
-
 **Market research & valuation**
-
-Stay ahead with expert insights, forecasts, and data-driven evaluations that empower informed decisions.
 
 **Investment facilitation & partnerships**
 
-Leveraging our extensive network, we connect investors with reputable developers, institutions, and private ventures aligned with their strategic objectives.
-
 ![A contemporary house in render and stone, set into a rocky hillside](https://www.think.cy/media/living-1600.webp)
-
-## Our philosophy
-
-### Integrity & trust
-
-Every recommendation is transparent and data-driven.
-
-### Exclusivity
-
-Access to elite, off-market developments.
-
-### Commitment
-
-Long-term relationships built on shared success.
-
-### Visionary thinking
-
-We identify opportunities that redefine markets and create sustainable, long-term value.
 
 ## Why investors choose thinkReal
 
