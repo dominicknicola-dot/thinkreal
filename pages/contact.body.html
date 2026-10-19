@@ -2,7 +2,6 @@
 
   <section class="scene" data-hero data-theme="light" aria-labelledby="ct-h">
     <div class="shell">
-      <p class="eb">Contact us</p>
       <h1 class="hl" id="ct-h"><span class="ln"><span>Invest with purpose.</span></span> <span class="ln mute"><span>Invest with style.</span></span></h1>
     </div>
   </section>
@@ -59,6 +58,17 @@
               <textarea id="c-message" name="message" rows="4" autocomplete="off"
                         aria-describedby="c-message-err"></textarea>
               <span class="fld__err" id="c-message-err" hidden></span>
+            </div>
+            <div class="fld">
+              <label class="check" for="c-human">
+                <input type="checkbox" id="c-human" name="human" value="confirmed"
+                       required aria-describedby="c-human-err" />
+                <span class="check__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="check__label">I am not a robot</span>
+              </label>
+              <span class="fld__err" id="c-human-err" hidden></span>
             </div>
             <button type="submit" class="btn" id="cformBtn">
               <span class="cform__btnlabel">Send message</span>

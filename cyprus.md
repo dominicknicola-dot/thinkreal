@@ -8,8 +8,6 @@ Source: https://www.think.cy/cyprus.html
 
 ![Limassol, Cyprus, from the air: apartment blocks and a curved glass tower along the seafront](https://www.think.cy/media/cyprus-1920.webp)
 
-Home base
-
 Our home market.
 
 Apartment prices and yields, by district
@@ -42,21 +40,13 @@ Figures from October 2026. Averages only. Ask us what a specific property is wor
 
 ![Yachts moored in a marina, low waterfront apartment buildings set along the breakwater](https://www.think.cy/media/cymarina-1800.webp)
 
-A marina on the Cyprus coast.
-
 ## In the EU, on the euro.
 
 English is the working language and the law is common law.
 
 ![A contemporary villa in pale stone and glass, an olive tree set into the terrace, dry hills behind](https://www.think.cy/media/cyprusvilla-1800.webp)
 
-A house above the coast.
-
 ![A palm-lined seafront promenade curving around a bay, boats moored offshore](https://www.think.cy/media/cyshore-1800.webp)
-
-The seafront, along the bay.
-
-The consultation
 
 ## Talk to us about Cyprus.
 

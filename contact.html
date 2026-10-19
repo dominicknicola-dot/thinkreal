@@ -40,7 +40,7 @@
   /* ---- space: 8px base ---- */
   --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem;
   --s5:3rem;  --s6:4rem; --s7:6rem;   --s8:8rem;
-  --section:clamp(5.5rem, 3.6rem + 8.1vw, 13rem);  /* 88 at 375, 174 at 1440, 208 at 1920 */
+  --section:clamp(3.25rem, 2.3rem + 4.1vw, 7rem);  /* 52 at 375, 96 at 1440, 112 at 1920 */
   --edge:max(clamp(1.25rem, 5vw, 5.5rem), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   --col:1180px;
   --measure:60ch;
@@ -49,20 +49,20 @@
   /* ---- motion: two curves, four durations ---- */
   --ease-enter:cubic-bezier(0.16, 1, 0.3, 1);   /* things arriving   */
   --ease-move:cubic-bezier(0.65, 0, 0.35, 1);   /* things changing   */
-  --d-enter:800ms;    /* entrance                                    */
-  --d-exit:480ms;     /* departure, 60% of entrance                  */
+  --d-enter:520ms;    /* entrance                                    */
+  --d-exit:320ms;     /* departure, 60% of entrance                  */
   --d-swap:700ms;     /* a scene's text changing inside the pin      */
   --d-media:1100ms;   /* the curtain clearing a plate                */
   --d-plate:1500ms;   /* the plate settling out of 1.06              */
   --d-ui:150ms;
-  --stagger:100ms;
-  --rise:28px;
+  --stagger:55ms;
+  --rise:10px;
 
   color-scheme:light;
 }
 /* the phone is re-timed, not compressed */
 @media (max-width:767px){
-  :root{ --d-enter:640ms; --d-media:800ms; --d-plate:1000ms; --stagger:90ms; --rise:20px; }
+  :root{ --d-enter:460ms; --d-media:700ms; --d-plate:900ms; --stagger:50ms; --rise:8px; }
   /* and the rhythm does tighten: at 88px a section the home page ran to
      11.6 screens of scrolling. Desktop keeps its air; a thumb does not. */
   :root{ --section:3.5rem; }
@@ -354,7 +354,27 @@ html.js [data-hero].in-copy :is(.eb, .ln > span, .bd, .btn, .pick__lead, .pick__
 .plate--band{ margin-top:0; }
 .plate--band .frame{ aspect-ratio:auto; height:min(64svh, 620px); }
 .plate--band figcaption{ margin-top:var(--s3); }
-.plate--tall .frame{ aspect-ratio:4/5; }
+/* 4:5 beside three lines of copy left the shorter side with nothing under
+   it for 200px. 3:4 still reads as the upright one of the three. */
+.plate--tall .frame{ aspect-ratio:3/4; }
+
+/* ---------- things that answer when you touch them ----------
+   Transform and opacity only, so nothing reflows. Every one of these is a
+   pointer-only refinement: the page is complete without them. */
+@media (hover:hover) and (pointer:fine){
+  .frame img{ transition:scale 900ms var(--ease-enter); }
+  .plate:hover .frame img{ scale:1.03; }
+  /* the row you are reading lifts out of the secondary ink */
+  .register dd, .stack dd, .horizon p{ transition:color var(--d-ui) var(--ease-move); }
+  .register dt, .stack dt{ transition:opacity var(--d-ui) var(--ease-move); }
+  .register:hover dd, .stack:hover dd{ color:var(--ink-2); }
+  .register dd:hover, .stack dd:hover, .horizon p:hover{ color:var(--ink); }
+  .register:hover dt, .stack:hover dt{ opacity:.5; }
+  .register dt:hover, .stack dt:hover{ opacity:1; }
+}
+/* a press is acknowledged on every device, not only ones with a cursor */
+.btn:active, .pick__opt:active, .jump:active{ scale:.985; }
+.btn, .pick__opt, .jump{ transition:opacity var(--d-ui) var(--ease-move), scale 120ms var(--ease-move); }
 
 /* ============================================================
    SCENE 3 · THE CREED, told at the pace of the scroll
@@ -511,7 +531,10 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
    changes is set in blocks that break across two columns, not rows. */
 .split{ display:grid; gap:var(--s6); }
 @media (min-width:1024px){
-  .split{ grid-template-columns:minmax(0,1fr) minmax(0,0.62fr); column-gap:var(--s7); align-items:start; }
+  /* Top-aligned, three lines of text beside a 4:5 plate left a column of
+     nothing under the copy as tall as the copy itself. Centred, the short
+     side reads as set against the tall one rather than abandoned by it. */
+  .split{ grid-template-columns:minmax(0,1fr) minmax(0,0.78fr); column-gap:var(--s7); align-items:center; }
   .split .plate{ margin-top:0; }
 }
 .stack{ margin-top:var(--s6); }
@@ -529,7 +552,9 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
 /* ============================================================
    CONTACT
    ============================================================ */
-.ct-grid{ display:grid; gap:var(--s7); margin-top:var(--s7); }
+/* the section already pads above this; a third gap on top of two was the
+   285px hole between the headline and the first label */
+.ct-grid{ display:grid; gap:var(--s7); margin-top:var(--s5); }
 @media (min-width:1024px){ .ct-grid{ grid-template-columns:minmax(0,4fr) minmax(0,6fr); column-gap:var(--s7); align-items:start; } }
 .ct-info{ display:grid; align-content:start; gap:var(--s4); }
 .ct-info div{ display:grid; justify-items:start; gap:var(--s1); }
@@ -564,6 +589,34 @@ form.cform{ display:grid; gap:var(--s4); }
 .fld__err{ display:block; margin-top:var(--s1); font-size:var(--t-small); line-height:1.5; font-weight:500; color:var(--ink); }
 .cform__alert{ display:grid; gap:var(--s2); justify-items:start; padding:var(--s3); background:var(--bg); font-size:var(--t-small); line-height:1.5; }
 .cform__alertlink{ display:inline-flex; align-items:center; min-height:44px; font-weight:500; color:var(--accent); text-decoration:underline; text-underline-offset:.2em; }
+/* the confirmation. The native box is kept in the layout and made invisible
+   rather than display:none, so it stays focusable and the label still drives
+   it; the drawn box follows its checked and focus states. */
+.check{
+  display:inline-grid; grid-template-columns:auto 1fr; align-items:center;
+  gap:var(--s2); min-height:44px; cursor:pointer;
+  font-size:var(--t-small); line-height:1.5; color:var(--ink);
+}
+.check input{
+  position:absolute; width:1px; height:1px; margin:0; padding:0;
+  opacity:0; pointer-events:none;
+}
+.check__box{
+  display:grid; place-items:center; width:22px; height:22px;
+  border:1px solid color-mix(in srgb, var(--ink) 48%, transparent);
+  color:var(--bg); background:transparent;
+  transition:background-color var(--d-ui) var(--ease-move),
+             border-color var(--d-ui) var(--ease-move);
+}
+.check__box svg{ width:14px; height:14px; opacity:0; scale:.7;
+  transition:opacity var(--d-ui) var(--ease-move), scale var(--d-ui) var(--ease-enter); }
+.check input:checked + .check__box{ background:var(--accent); border-color:var(--accent); }
+.check input:checked + .check__box svg{ opacity:1; scale:1; }
+.check input:focus-visible + .check__box{ outline:2px solid var(--accent); outline-offset:3px; }
+.check input.is-invalid + .check__box{ border-width:2px; border-color:var(--ink); }
+@media (hover:hover) and (pointer:fine){
+  .check:hover .check__box{ border-color:var(--ink); }
+}
 .cform .btn{ justify-self:start; margin-top:var(--s2); }
 .cform__msg{ display:none; font-size:var(--t-title); line-height:1.3; letter-spacing:-0.015em; }
 .cform__msg.show{ display:block; }
@@ -592,23 +645,40 @@ form.cform{ display:grid; gap:var(--s4); }
    first, so the photograph beneath is uncovered on a diagonal.
    Inert without script, absent when motion is off.
    ============================================================ */
-.pre{ position:fixed; inset:0; z-index:200; display:grid; align-content:end; overflow:clip; }
+.pre{ position:fixed; inset:0; z-index:200; overflow:clip; }
 html:not(.js) .pre{ display:none; }
-.pre__bands{ position:absolute; inset:0; display:grid; grid-template-rows:repeat(6, 1fr); }
-/* a hair of overlap, so no seam of the page shows between two bands */
-.pre__bands > i{ display:block; background:var(--bg); margin-bottom:-1px; }
-.pre__foot{ position:relative; display:grid; gap:var(--s3); justify-items:start; padding:0 var(--edge) var(--s6); }
-.pre__n{
-  font-size:var(--t-label); font-weight:500; letter-spacing:0.14em; color:var(--ink-2);
-  font-variant-numeric:tabular-nums;
+/* Two grounds meeting on the horizon, and the mark sits on that line. The
+   line draws out from the middle, then the grounds part along it. One gesture
+   instead of six bands clearing in sequence, which read as a slide changing. */
+.pre__half{
+  display:block; position:absolute; left:0; right:0; height:50.5%;
+  background:var(--bg);
 }
-/* the rule draws as the count runs: the wait is measured, not decorated */
-.pre__rule{ display:block; width:min(260px, 44vw); height:1px; background:var(--ink-2); opacity:.55; transform:scaleX(0); transform-origin:0 50%; }
+.pre__half--t{ top:0; }
+.pre__half--b{ bottom:0; }
+.pre__mark{
+  position:absolute; left:50%; top:50%; translate:-50% -50%; z-index:1;
+  display:grid; justify-items:center; gap:var(--s3);
+}
+.pre__word{
+  font-size:var(--t-small); font-weight:500; letter-spacing:0.34em;
+  text-transform:uppercase; color:var(--ink); opacity:0;
+}
+.pre__rule{
+  display:block; width:min(300px, 52vw); height:1px; background:var(--ink-2);
+  opacity:.6; transform:scaleX(0); transform-origin:50% 50%;
+}
+/* crossing to another page: the content goes, the ground stays, so the two
+   pages read as one surface rather than two slides. Never applied without
+   script, and removed again on a history restore. */
+html.leaving :is(.nav, main, .ft){
+  opacity:0; transition:opacity 170ms var(--ease-move);
+}
 .pre.done{ pointer-events:none; }
-.pre.done .pre__foot{ opacity:0; transition:opacity 220ms linear; }
-/* no Motion: the whole curtain lifts as one, which is where this started */
-.pre.lift{ translate:0 -101%; transition:translate 900ms var(--ease-move); }
-.pre.lift .pre__bands{ background:var(--bg); }
+.pre.done .pre__mark{ opacity:0; transition:opacity 260ms linear; }
+/* no Motion: the two grounds still part, on transitions alone */
+.pre.lift .pre__half--t{ translate:0 -101%; transition:translate 820ms var(--ease-move); }
+.pre.lift .pre__half--b{ translate:0 101%; transition:translate 820ms var(--ease-move); }
 /* the nav is the last layer to arrive, and its own parts arrive in order */
 html.js :is(.brand, .nav__links a, .nav__cta){ opacity:0; }
 html.js.lifted :is(.brand, .nav__links a, .nav__cta){ opacity:1; transition:opacity 600ms var(--ease-enter) 240ms; }
@@ -729,7 +799,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
 </style>
 </head>
 <body>
-<div class="pre" id="pre" data-theme="dark" aria-hidden="true"><div class="pre__bands" id="preBands"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pre__foot" id="preFoot"><span class="pre__n" id="preN">00</span><span class="pre__rule" id="preRule"></span></div></div>
+<div class="pre" id="pre" data-theme="dark" aria-hidden="true"><i class="pre__half pre__half--t" id="preT"></i><i class="pre__half pre__half--b" id="preB"></i><div class="pre__mark" id="preMark"><span class="pre__word">thinkReal</span><span class="pre__rule" id="preRule"></span></div></div>
 <a href="#main" class="skip">Skip to content</a>
 
 <nav class="nav" id="nav" data-theme="dark" aria-label="Primary">
@@ -749,7 +819,6 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
 
   <section class="scene" data-hero data-theme="light" aria-labelledby="ct-h">
     <div class="shell">
-      <p class="eb">Contact us</p>
       <h1 class="hl" id="ct-h"><span class="ln"><span>Invest with purpose.</span></span> <span class="ln mute"><span>Invest with style.</span></span></h1>
     </div>
   </section>
@@ -806,6 +875,17 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
               <textarea id="c-message" name="message" rows="4" autocomplete="off"
                         aria-describedby="c-message-err"></textarea>
               <span class="fld__err" id="c-message-err" hidden></span>
+            </div>
+            <div class="fld">
+              <label class="check" for="c-human">
+                <input type="checkbox" id="c-human" name="human" value="confirmed"
+                       required aria-describedby="c-human-err" />
+                <span class="check__box" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="check__label">I am not a robot</span>
+              </label>
+              <span class="fld__err" id="c-human-err" hidden></span>
             </div>
             <button type="submit" class="btn" id="cformBtn">
               <span class="cform__btnlabel">Send message</span>
@@ -984,7 +1064,7 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     var endpoint = form.getAttribute("action") || "";
     var liveForm = /formspree\.io\/f\/[a-zA-Z0-9]+$/.test(endpoint) && endpoint.indexOf("REPLACE") === -1;
     var sending = false;
-    var FIELDS = ["email", "name", "phone", "message"];
+    var FIELDS = ["email", "name", "phone", "message", "human"];
 
     function setFieldError(input, text) {
       var el = doc.getElementById(input.id + "-err");
@@ -1018,6 +1098,10 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     }
     /* cause plus recovery, never just "invalid" */
     function validate(input) {
+      /* the confirmation is a state, not a value */
+      if (input.type === "checkbox") {
+        return input.checked ? "" : "Confirm you are not a robot before sending.";
+      }
       var v = (input.value || "").trim();
       if (input.name === "email") {
         if (!v) return "Enter your email so we can reply.";
@@ -1030,6 +1114,10 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     FIELDS.forEach(function (n) {
       var input = form[n];
       if (!input) return;
+      if (input.type === "checkbox") {
+        input.addEventListener("change", function () { setFieldError(input, validate(input)); });
+        return;
+      }
       input.addEventListener("blur", function () { setFieldError(input, validate(input)); });
       input.addEventListener("input", function () {
         if (input.classList.contains("is-invalid") && !validate(input)) setFieldError(input, "");
@@ -1532,13 +1620,14 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
      ============================================================ */
   /* the whole opening, on one clock (seconds) */
   var T = {
-    count: 0.44,    /* the count runs and the rule draws           */
-    stage: 0.38,    /* the photograph starts growing under the bands */
-    bands: 0.50,    /* the first band clears                        */
-    gap: 0.075,     /* between bands                                */
-    band: 0.85,     /* one band's travel                            */
-    nav: 0.86,      /* the nav's parts arrive                       */
-    copy: 0.96,     /* the first headline line rises                */
+    word: 0.30,     /* the mark resolves                            */
+    rule: 0.46,     /* the line draws out from the middle           */
+    ruleAt: 0.14,   /* and starts just after the mark               */
+    stage: 0.46,    /* the photograph starts growing underneath     */
+    part: 0.72,     /* the two grounds begin to part                */
+    partRun: 0.82,  /* and how long they take to clear              */
+    nav: 1.12,      /* the nav's parts arrive                       */
+    copy: 1.20,     /* the first headline line rises                */
     stageFade: 0.7, /* the photograph's own fade                    */
     stageGrow: 1.9  /* and its settle, the longest thing on screen  */
   };
@@ -1549,6 +1638,11 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     var pre = doc.getElementById("pre");
 
     /* a route change inside the artifact: the same order, no wait in front */
+    /* arrived from our own pages: drop the curtain before it is ever seen */
+    if (pre && cameFromHere()) {
+      if (pre.parentNode) pre.parentNode.removeChild(pre);
+      pre = null;
+    }
     if (preDone || !pre) {
       preDone = true;
       html.classList.add("lifted");
@@ -1570,34 +1664,35 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
       return;
     }
 
-    var num = doc.getElementById("preN");
+    var mark = doc.getElementById("preMark");
+    var word = mark && mark.querySelector(".pre__word");
     var rule = doc.getElementById("preRule");
-    var bands = all(doc, "#preBands > i");
+    var halves = [doc.getElementById("preT"), doc.getElementById("preB")]
+      .filter(function (el) { return !!el; });
     var timers = [];
     function at(sec, fn) { timers.push(window.setTimeout(fn, sec * 1000)); }
 
     /* no Motion: the count runs on a timer and the curtain lifts as one.
        rAF can be throttled before first paint, so this never uses frames. */
     if (!M) {
-      var step = 0, steps = 11;
-      var iv = window.setInterval(function () {
-        step += 1;
-        var p = Math.min(1, step / steps);
-        if (num) num.textContent = p < 1 ? ("0" + Math.round(p * 100)).slice(-2) : "100";
-        if (p >= 1) {
-          window.clearInterval(iv);
-          pre.classList.add("done", "lift");
-          html.classList.add("lifted");
-          openStage(hero);
-          window.setTimeout(function () { openCopy(hero, 0); }, 220);
-          window.setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1000);
-        }
-      }, 440 / steps);
+      /* transitions only: the mark shows, the line draws, the grounds part */
+      if (word) word.style.opacity = "1";
+      if (rule) {
+        rule.style.transition = "transform 460ms " + "cubic-bezier(0.4,0,0.2,1)";
+        window.setTimeout(function () { rule.style.transform = "scaleX(1)"; }, 120);
+      }
+      window.setTimeout(function () {
+        pre.classList.add("done", "lift");
+        html.classList.add("lifted");
+        openStage(hero);
+        window.setTimeout(function () { openCopy(hero, 0); }, 260);
+        window.setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1000);
+      }, 760);
       return;
     }
 
     opening = true;
-    var last = T.bands + T.gap * Math.max(0, bands.length - 1) + T.band;
+    var last = T.part + T.partRun;
     var GESTURES = ["pointerdown", "keydown", "wheel", "touchstart"];
 
     function dropPre() { if (pre.parentNode) pre.parentNode.removeChild(pre); }
@@ -1635,25 +1730,23 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
       if (begin.done) return;
       begin.done = true;
 
-      /* layer 0 · the measure of the wait */
-      if (rule) run(M.animate(rule, { scaleX: [0, 1] }, { duration: T.count, ease: [0.4, 0, 0.2, 1] }));
-      if (num) {
-        var mv = M.motionValue(0);
-        mv.on("change", function (v) {
-          num.textContent = v >= 99.5 ? "100" : ("0" + Math.round(v)).slice(-2);
-        });
-        run(M.animate(mv, 100, { duration: T.count, ease: "linear" }));
-      }
-      /* layer 1 · the photograph, already moving when it is uncovered */
+      /* layer 0 · the mark resolves on the horizon */
+      if (word) run(M.animate(word, { opacity: [0, 1] }, { duration: T.word, ease: ENTER }));
+      /* layer 1 · the line draws out from the middle, both ways at once */
+      if (rule) run(M.animate(rule, { scaleX: [0, 1] },
+        { duration: T.rule, delay: T.ruleAt, ease: [0.4, 0, 0.2, 1] }));
+      /* layer 2 · the photograph, already moving when it is uncovered */
       at(T.stage, function () { openStage(hero); });
-      /* layer 2 · the count goes before the ground it sits on does */
-      at(T.bands - 0.1, function () { pre.classList.add("done"); });
-      /* layers 3 to 8 · the bands, one at a time, left to right */
-      if (bands.length) {
-        var b = run(M.animate(bands, { x: ["0%", "102%"] }, {
-          duration: T.band, ease: MOVE,
-          delay: M.stagger(T.gap, { startDelay: T.bands })
-        }));
+      /* layer 3 · the mark goes before the ground it sits on does */
+      at(T.part - 0.16, function () { pre.classList.add("done"); });
+      /* layer 4 · the two grounds part along the line the mark sat on.
+         Written as one call per half: a top-level delay beside per-property
+         blocks is dropped by Motion, and these two must not drift apart. */
+      if (halves.length === 2) {
+        run(M.animate(halves[0], { y: ["0%", "-101%"] },
+          { duration: T.partRun, delay: T.part, ease: MOVE }));
+        var b = run(M.animate(halves[1], { y: ["0%", "101%"] },
+          { duration: T.partRun, delay: T.part, ease: MOVE }));
         if (b && b.then) b.then(dropPre, dropPre);
       }
       /* layer 9 · the nav, its own parts in order */
@@ -1741,12 +1834,54 @@ html.reveal-all [data-r="md"] .frame::after{ display:none; }
     markPlate(scope);
   }
 
+  /* ============================================================
+     MOVING BETWEEN PAGES
+     The curtain is an arrival at the site, not at every page. Crossing from
+     one page to the next it would be a door shutting in your face four times
+     a visit, so the second page onwards gets the short form: the content
+     leaves, the next one is already opening when it lands.
+     Read from the referrer rather than from storage, which keeps this
+     working with nothing written to the visitor's machine.
+     ============================================================ */
+  function cameFromHere() {
+    try {
+      return !!doc.referrer &&
+        new URL(doc.referrer).origin === window.location.origin;
+    } catch (e) { return false; }
+  }
+
+  function wireLeave() {
+    if (isSPA) return;           /* the artifact routes in place */
+    doc.addEventListener("click", function (ev) {
+      if (ev.defaultPrevented || ev.button !== 0) return;
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+      var a = ev.target.closest && ev.target.closest("a[href]");
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      var url;
+      try { url = new URL(a.href, window.location.href); } catch (e) { return; }
+      if (url.origin !== window.location.origin) return;
+      /* same page, or a jump within it: leave the browser to it */
+      if (url.pathname === window.location.pathname) return;
+      if (!motion()) return;     /* asked for no motion: go straight there */
+      ev.preventDefault();
+      html.classList.add("leaving");
+      window.setTimeout(function () { window.location.href = a.href; }, 170);
+      /* if the navigation is refused or slow, do not leave the page blank */
+      window.setTimeout(function () { html.classList.remove("leaving"); }, 1600);
+    });
+    /* coming back through history must never restore the half-gone state */
+    window.addEventListener("pageshow", function () {
+      html.classList.remove("leaving");
+    });
+  }
+
   function start(scope) {
     initReveals(scope);
     lightHero(scope);
     buildScenes(scope);
     wireNav();
     wirePick(scope);
+    wireLeave();
     openPage(scope);
   }
   if (isSPA) showRoute(routeFromHash());

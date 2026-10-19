@@ -8,13 +8,9 @@ Source: https://www.think.cy/greece.html
 
 ![Whitewashed island houses stepping down a terraced hillside in Greece](https://www.think.cy/media/greecegate-1920.webp)
 
-Coastal
-
 The mainland and the islands.
 
 ![Houses set along a turquoise bay on the Greek coast at Plitra, seen from the air](https://www.think.cy/media/greecetown-1800.webp)
-
-Plitra, on the Greek coast.
 
 ## More coastline than anywhere in Europe.
 
@@ -30,17 +26,9 @@ Figures from October 2026. Averages only. Ask us what a specific property is wor
 
 ![A house in pale stone and white render standing above the sea, low planting across the slope below](https://www.think.cy/media/grhouse-1800.webp)
 
-A house above the water.
-
 ![A low contemporary house in concrete and timber behind a gravel forecourt, an olive tree beside it](https://www.think.cy/media/residence-1600.webp)
 
-A contemporary house inland.
-
 ![Whitewashed Cycladic houses stacked down a Santorini hillside](https://www.think.cy/media/cardgreece-1800.webp)
-
-Cycladic houses on the hillside, Santorini.
-
-The consultation
 
 ## Talk to us about Greece.
 

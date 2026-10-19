@@ -138,7 +138,7 @@
     var endpoint = form.getAttribute("action") || "";
     var liveForm = /formspree\.io\/f\/[a-zA-Z0-9]+$/.test(endpoint) && endpoint.indexOf("REPLACE") === -1;
     var sending = false;
-    var FIELDS = ["email", "name", "phone", "message"];
+    var FIELDS = ["email", "name", "phone", "message", "human"];
 
     function setFieldError(input, text) {
       var el = doc.getElementById(input.id + "-err");
@@ -172,6 +172,10 @@
     }
     /* cause plus recovery, never just "invalid" */
     function validate(input) {
+      /* the confirmation is a state, not a value */
+      if (input.type === "checkbox") {
+        return input.checked ? "" : "Confirm you are not a robot before sending.";
+      }
       var v = (input.value || "").trim();
       if (input.name === "email") {
         if (!v) return "Enter your email so we can reply.";
@@ -184,6 +188,10 @@
     FIELDS.forEach(function (n) {
       var input = form[n];
       if (!input) return;
+      if (input.type === "checkbox") {
+        input.addEventListener("change", function () { setFieldError(input, validate(input)); });
+        return;
+      }
       input.addEventListener("blur", function () { setFieldError(input, validate(input)); });
       input.addEventListener("input", function () {
         if (input.classList.contains("is-invalid") && !validate(input)) setFieldError(input, "");
@@ -686,13 +694,14 @@
      ============================================================ */
   /* the whole opening, on one clock (seconds) */
   var T = {
-    count: 0.44,    /* the count runs and the rule draws           */
-    stage: 0.38,    /* the photograph starts growing under the bands */
-    bands: 0.50,    /* the first band clears                        */
-    gap: 0.075,     /* between bands                                */
-    band: 0.85,     /* one band's travel                            */
-    nav: 0.86,      /* the nav's parts arrive                       */
-    copy: 0.96,     /* the first headline line rises                */
+    word: 0.30,     /* the mark resolves                            */
+    rule: 0.46,     /* the line draws out from the middle           */
+    ruleAt: 0.14,   /* and starts just after the mark               */
+    stage: 0.46,    /* the photograph starts growing underneath     */
+    part: 0.72,     /* the two grounds begin to part                */
+    partRun: 0.82,  /* and how long they take to clear              */
+    nav: 1.12,      /* the nav's parts arrive                       */
+    copy: 1.20,     /* the first headline line rises                */
     stageFade: 0.7, /* the photograph's own fade                    */
     stageGrow: 1.9  /* and its settle, the longest thing on screen  */
   };
@@ -703,6 +712,11 @@
     var pre = doc.getElementById("pre");
 
     /* a route change inside the artifact: the same order, no wait in front */
+    /* arrived from our own pages: drop the curtain before it is ever seen */
+    if (pre && cameFromHere()) {
+      if (pre.parentNode) pre.parentNode.removeChild(pre);
+      pre = null;
+    }
     if (preDone || !pre) {
       preDone = true;
       html.classList.add("lifted");
@@ -724,34 +738,35 @@
       return;
     }
 
-    var num = doc.getElementById("preN");
+    var mark = doc.getElementById("preMark");
+    var word = mark && mark.querySelector(".pre__word");
     var rule = doc.getElementById("preRule");
-    var bands = all(doc, "#preBands > i");
+    var halves = [doc.getElementById("preT"), doc.getElementById("preB")]
+      .filter(function (el) { return !!el; });
     var timers = [];
     function at(sec, fn) { timers.push(window.setTimeout(fn, sec * 1000)); }
 
     /* no Motion: the count runs on a timer and the curtain lifts as one.
        rAF can be throttled before first paint, so this never uses frames. */
     if (!M) {
-      var step = 0, steps = 11;
-      var iv = window.setInterval(function () {
-        step += 1;
-        var p = Math.min(1, step / steps);
-        if (num) num.textContent = p < 1 ? ("0" + Math.round(p * 100)).slice(-2) : "100";
-        if (p >= 1) {
-          window.clearInterval(iv);
-          pre.classList.add("done", "lift");
-          html.classList.add("lifted");
-          openStage(hero);
-          window.setTimeout(function () { openCopy(hero, 0); }, 220);
-          window.setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1000);
-        }
-      }, 440 / steps);
+      /* transitions only: the mark shows, the line draws, the grounds part */
+      if (word) word.style.opacity = "1";
+      if (rule) {
+        rule.style.transition = "transform 460ms " + "cubic-bezier(0.4,0,0.2,1)";
+        window.setTimeout(function () { rule.style.transform = "scaleX(1)"; }, 120);
+      }
+      window.setTimeout(function () {
+        pre.classList.add("done", "lift");
+        html.classList.add("lifted");
+        openStage(hero);
+        window.setTimeout(function () { openCopy(hero, 0); }, 260);
+        window.setTimeout(function () { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1000);
+      }, 760);
       return;
     }
 
     opening = true;
-    var last = T.bands + T.gap * Math.max(0, bands.length - 1) + T.band;
+    var last = T.part + T.partRun;
     var GESTURES = ["pointerdown", "keydown", "wheel", "touchstart"];
 
     function dropPre() { if (pre.parentNode) pre.parentNode.removeChild(pre); }
@@ -789,25 +804,23 @@
       if (begin.done) return;
       begin.done = true;
 
-      /* layer 0 · the measure of the wait */
-      if (rule) run(M.animate(rule, { scaleX: [0, 1] }, { duration: T.count, ease: [0.4, 0, 0.2, 1] }));
-      if (num) {
-        var mv = M.motionValue(0);
-        mv.on("change", function (v) {
-          num.textContent = v >= 99.5 ? "100" : ("0" + Math.round(v)).slice(-2);
-        });
-        run(M.animate(mv, 100, { duration: T.count, ease: "linear" }));
-      }
-      /* layer 1 · the photograph, already moving when it is uncovered */
+      /* layer 0 · the mark resolves on the horizon */
+      if (word) run(M.animate(word, { opacity: [0, 1] }, { duration: T.word, ease: ENTER }));
+      /* layer 1 · the line draws out from the middle, both ways at once */
+      if (rule) run(M.animate(rule, { scaleX: [0, 1] },
+        { duration: T.rule, delay: T.ruleAt, ease: [0.4, 0, 0.2, 1] }));
+      /* layer 2 · the photograph, already moving when it is uncovered */
       at(T.stage, function () { openStage(hero); });
-      /* layer 2 · the count goes before the ground it sits on does */
-      at(T.bands - 0.1, function () { pre.classList.add("done"); });
-      /* layers 3 to 8 · the bands, one at a time, left to right */
-      if (bands.length) {
-        var b = run(M.animate(bands, { x: ["0%", "102%"] }, {
-          duration: T.band, ease: MOVE,
-          delay: M.stagger(T.gap, { startDelay: T.bands })
-        }));
+      /* layer 3 · the mark goes before the ground it sits on does */
+      at(T.part - 0.16, function () { pre.classList.add("done"); });
+      /* layer 4 · the two grounds part along the line the mark sat on.
+         Written as one call per half: a top-level delay beside per-property
+         blocks is dropped by Motion, and these two must not drift apart. */
+      if (halves.length === 2) {
+        run(M.animate(halves[0], { y: ["0%", "-101%"] },
+          { duration: T.partRun, delay: T.part, ease: MOVE }));
+        var b = run(M.animate(halves[1], { y: ["0%", "101%"] },
+          { duration: T.partRun, delay: T.part, ease: MOVE }));
         if (b && b.then) b.then(dropPre, dropPre);
       }
       /* layer 9 · the nav, its own parts in order */
@@ -895,12 +908,54 @@
     markPlate(scope);
   }
 
+  /* ============================================================
+     MOVING BETWEEN PAGES
+     The curtain is an arrival at the site, not at every page. Crossing from
+     one page to the next it would be a door shutting in your face four times
+     a visit, so the second page onwards gets the short form: the content
+     leaves, the next one is already opening when it lands.
+     Read from the referrer rather than from storage, which keeps this
+     working with nothing written to the visitor's machine.
+     ============================================================ */
+  function cameFromHere() {
+    try {
+      return !!doc.referrer &&
+        new URL(doc.referrer).origin === window.location.origin;
+    } catch (e) { return false; }
+  }
+
+  function wireLeave() {
+    if (isSPA) return;           /* the artifact routes in place */
+    doc.addEventListener("click", function (ev) {
+      if (ev.defaultPrevented || ev.button !== 0) return;
+      if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+      var a = ev.target.closest && ev.target.closest("a[href]");
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      var url;
+      try { url = new URL(a.href, window.location.href); } catch (e) { return; }
+      if (url.origin !== window.location.origin) return;
+      /* same page, or a jump within it: leave the browser to it */
+      if (url.pathname === window.location.pathname) return;
+      if (!motion()) return;     /* asked for no motion: go straight there */
+      ev.preventDefault();
+      html.classList.add("leaving");
+      window.setTimeout(function () { window.location.href = a.href; }, 170);
+      /* if the navigation is refused or slow, do not leave the page blank */
+      window.setTimeout(function () { html.classList.remove("leaving"); }, 1600);
+    });
+    /* coming back through history must never restore the half-gone state */
+    window.addEventListener("pageshow", function () {
+      html.classList.remove("leaving");
+    });
+  }
+
   function start(scope) {
     initReveals(scope);
     lightHero(scope);
     buildScenes(scope);
     wireNav();
     wirePick(scope);
+    wireLeave();
     openPage(scope);
   }
   if (isSPA) showRoute(routeFromHash());

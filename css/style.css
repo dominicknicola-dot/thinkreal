@@ -27,7 +27,7 @@
   /* ---- space: 8px base ---- */
   --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem;
   --s5:3rem;  --s6:4rem; --s7:6rem;   --s8:8rem;
-  --section:clamp(5.5rem, 3.6rem + 8.1vw, 13rem);  /* 88 at 375, 174 at 1440, 208 at 1920 */
+  --section:clamp(3.25rem, 2.3rem + 4.1vw, 7rem);  /* 52 at 375, 96 at 1440, 112 at 1920 */
   --edge:max(clamp(1.25rem, 5vw, 5.5rem), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   --col:1180px;
   --measure:60ch;
@@ -36,20 +36,20 @@
   /* ---- motion: two curves, four durations ---- */
   --ease-enter:cubic-bezier(0.16, 1, 0.3, 1);   /* things arriving   */
   --ease-move:cubic-bezier(0.65, 0, 0.35, 1);   /* things changing   */
-  --d-enter:800ms;    /* entrance                                    */
-  --d-exit:480ms;     /* departure, 60% of entrance                  */
+  --d-enter:520ms;    /* entrance                                    */
+  --d-exit:320ms;     /* departure, 60% of entrance                  */
   --d-swap:700ms;     /* a scene's text changing inside the pin      */
   --d-media:1100ms;   /* the curtain clearing a plate                */
   --d-plate:1500ms;   /* the plate settling out of 1.06              */
   --d-ui:150ms;
-  --stagger:100ms;
-  --rise:28px;
+  --stagger:55ms;
+  --rise:10px;
 
   color-scheme:light;
 }
 /* the phone is re-timed, not compressed */
 @media (max-width:767px){
-  :root{ --d-enter:640ms; --d-media:800ms; --d-plate:1000ms; --stagger:90ms; --rise:20px; }
+  :root{ --d-enter:460ms; --d-media:700ms; --d-plate:900ms; --stagger:50ms; --rise:8px; }
   /* and the rhythm does tighten: at 88px a section the home page ran to
      11.6 screens of scrolling. Desktop keeps its air; a thumb does not. */
   :root{ --section:3.5rem; }
@@ -341,7 +341,27 @@ html.js [data-hero].in-copy :is(.eb, .ln > span, .bd, .btn, .pick__lead, .pick__
 .plate--band{ margin-top:0; }
 .plate--band .frame{ aspect-ratio:auto; height:min(64svh, 620px); }
 .plate--band figcaption{ margin-top:var(--s3); }
-.plate--tall .frame{ aspect-ratio:4/5; }
+/* 4:5 beside three lines of copy left the shorter side with nothing under
+   it for 200px. 3:4 still reads as the upright one of the three. */
+.plate--tall .frame{ aspect-ratio:3/4; }
+
+/* ---------- things that answer when you touch them ----------
+   Transform and opacity only, so nothing reflows. Every one of these is a
+   pointer-only refinement: the page is complete without them. */
+@media (hover:hover) and (pointer:fine){
+  .frame img{ transition:scale 900ms var(--ease-enter); }
+  .plate:hover .frame img{ scale:1.03; }
+  /* the row you are reading lifts out of the secondary ink */
+  .register dd, .stack dd, .horizon p{ transition:color var(--d-ui) var(--ease-move); }
+  .register dt, .stack dt{ transition:opacity var(--d-ui) var(--ease-move); }
+  .register:hover dd, .stack:hover dd{ color:var(--ink-2); }
+  .register dd:hover, .stack dd:hover, .horizon p:hover{ color:var(--ink); }
+  .register:hover dt, .stack:hover dt{ opacity:.5; }
+  .register dt:hover, .stack dt:hover{ opacity:1; }
+}
+/* a press is acknowledged on every device, not only ones with a cursor */
+.btn:active, .pick__opt:active, .jump:active{ scale:.985; }
+.btn, .pick__opt, .jump{ transition:opacity var(--d-ui) var(--ease-move), scale 120ms var(--ease-move); }
 
 /* ============================================================
    SCENE 3 · THE CREED, told at the pace of the scroll
@@ -498,7 +518,10 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
    changes is set in blocks that break across two columns, not rows. */
 .split{ display:grid; gap:var(--s6); }
 @media (min-width:1024px){
-  .split{ grid-template-columns:minmax(0,1fr) minmax(0,0.62fr); column-gap:var(--s7); align-items:start; }
+  /* Top-aligned, three lines of text beside a 4:5 plate left a column of
+     nothing under the copy as tall as the copy itself. Centred, the short
+     side reads as set against the tall one rather than abandoned by it. */
+  .split{ grid-template-columns:minmax(0,1fr) minmax(0,0.78fr); column-gap:var(--s7); align-items:center; }
   .split .plate{ margin-top:0; }
 }
 .stack{ margin-top:var(--s6); }
@@ -516,7 +539,9 @@ html.js .pin[data-pin].live .pin__frame, html.js .pin[data-pin].live .pin__plate
 /* ============================================================
    CONTACT
    ============================================================ */
-.ct-grid{ display:grid; gap:var(--s7); margin-top:var(--s7); }
+/* the section already pads above this; a third gap on top of two was the
+   285px hole between the headline and the first label */
+.ct-grid{ display:grid; gap:var(--s7); margin-top:var(--s5); }
 @media (min-width:1024px){ .ct-grid{ grid-template-columns:minmax(0,4fr) minmax(0,6fr); column-gap:var(--s7); align-items:start; } }
 .ct-info{ display:grid; align-content:start; gap:var(--s4); }
 .ct-info div{ display:grid; justify-items:start; gap:var(--s1); }
@@ -551,6 +576,34 @@ form.cform{ display:grid; gap:var(--s4); }
 .fld__err{ display:block; margin-top:var(--s1); font-size:var(--t-small); line-height:1.5; font-weight:500; color:var(--ink); }
 .cform__alert{ display:grid; gap:var(--s2); justify-items:start; padding:var(--s3); background:var(--bg); font-size:var(--t-small); line-height:1.5; }
 .cform__alertlink{ display:inline-flex; align-items:center; min-height:44px; font-weight:500; color:var(--accent); text-decoration:underline; text-underline-offset:.2em; }
+/* the confirmation. The native box is kept in the layout and made invisible
+   rather than display:none, so it stays focusable and the label still drives
+   it; the drawn box follows its checked and focus states. */
+.check{
+  display:inline-grid; grid-template-columns:auto 1fr; align-items:center;
+  gap:var(--s2); min-height:44px; cursor:pointer;
+  font-size:var(--t-small); line-height:1.5; color:var(--ink);
+}
+.check input{
+  position:absolute; width:1px; height:1px; margin:0; padding:0;
+  opacity:0; pointer-events:none;
+}
+.check__box{
+  display:grid; place-items:center; width:22px; height:22px;
+  border:1px solid color-mix(in srgb, var(--ink) 48%, transparent);
+  color:var(--bg); background:transparent;
+  transition:background-color var(--d-ui) var(--ease-move),
+             border-color var(--d-ui) var(--ease-move);
+}
+.check__box svg{ width:14px; height:14px; opacity:0; scale:.7;
+  transition:opacity var(--d-ui) var(--ease-move), scale var(--d-ui) var(--ease-enter); }
+.check input:checked + .check__box{ background:var(--accent); border-color:var(--accent); }
+.check input:checked + .check__box svg{ opacity:1; scale:1; }
+.check input:focus-visible + .check__box{ outline:2px solid var(--accent); outline-offset:3px; }
+.check input.is-invalid + .check__box{ border-width:2px; border-color:var(--ink); }
+@media (hover:hover) and (pointer:fine){
+  .check:hover .check__box{ border-color:var(--ink); }
+}
 .cform .btn{ justify-self:start; margin-top:var(--s2); }
 .cform__msg{ display:none; font-size:var(--t-title); line-height:1.3; letter-spacing:-0.015em; }
 .cform__msg.show{ display:block; }
@@ -579,23 +632,40 @@ form.cform{ display:grid; gap:var(--s4); }
    first, so the photograph beneath is uncovered on a diagonal.
    Inert without script, absent when motion is off.
    ============================================================ */
-.pre{ position:fixed; inset:0; z-index:200; display:grid; align-content:end; overflow:clip; }
+.pre{ position:fixed; inset:0; z-index:200; overflow:clip; }
 html:not(.js) .pre{ display:none; }
-.pre__bands{ position:absolute; inset:0; display:grid; grid-template-rows:repeat(6, 1fr); }
-/* a hair of overlap, so no seam of the page shows between two bands */
-.pre__bands > i{ display:block; background:var(--bg); margin-bottom:-1px; }
-.pre__foot{ position:relative; display:grid; gap:var(--s3); justify-items:start; padding:0 var(--edge) var(--s6); }
-.pre__n{
-  font-size:var(--t-label); font-weight:500; letter-spacing:0.14em; color:var(--ink-2);
-  font-variant-numeric:tabular-nums;
+/* Two grounds meeting on the horizon, and the mark sits on that line. The
+   line draws out from the middle, then the grounds part along it. One gesture
+   instead of six bands clearing in sequence, which read as a slide changing. */
+.pre__half{
+  display:block; position:absolute; left:0; right:0; height:50.5%;
+  background:var(--bg);
 }
-/* the rule draws as the count runs: the wait is measured, not decorated */
-.pre__rule{ display:block; width:min(260px, 44vw); height:1px; background:var(--ink-2); opacity:.55; transform:scaleX(0); transform-origin:0 50%; }
+.pre__half--t{ top:0; }
+.pre__half--b{ bottom:0; }
+.pre__mark{
+  position:absolute; left:50%; top:50%; translate:-50% -50%; z-index:1;
+  display:grid; justify-items:center; gap:var(--s3);
+}
+.pre__word{
+  font-size:var(--t-small); font-weight:500; letter-spacing:0.34em;
+  text-transform:uppercase; color:var(--ink); opacity:0;
+}
+.pre__rule{
+  display:block; width:min(300px, 52vw); height:1px; background:var(--ink-2);
+  opacity:.6; transform:scaleX(0); transform-origin:50% 50%;
+}
+/* crossing to another page: the content goes, the ground stays, so the two
+   pages read as one surface rather than two slides. Never applied without
+   script, and removed again on a history restore. */
+html.leaving :is(.nav, main, .ft){
+  opacity:0; transition:opacity 170ms var(--ease-move);
+}
 .pre.done{ pointer-events:none; }
-.pre.done .pre__foot{ opacity:0; transition:opacity 220ms linear; }
-/* no Motion: the whole curtain lifts as one, which is where this started */
-.pre.lift{ translate:0 -101%; transition:translate 900ms var(--ease-move); }
-.pre.lift .pre__bands{ background:var(--bg); }
+.pre.done .pre__mark{ opacity:0; transition:opacity 260ms linear; }
+/* no Motion: the two grounds still part, on transitions alone */
+.pre.lift .pre__half--t{ translate:0 -101%; transition:translate 820ms var(--ease-move); }
+.pre.lift .pre__half--b{ translate:0 101%; transition:translate 820ms var(--ease-move); }
 /* the nav is the last layer to arrive, and its own parts arrive in order */
 html.js :is(.brand, .nav__links a, .nav__cta){ opacity:0; }
 html.js.lifted :is(.brand, .nav__links a, .nav__cta){ opacity:1; transition:opacity 600ms var(--ease-enter) 240ms; }

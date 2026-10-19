@@ -40,8 +40,6 @@ Our multilingual team brings a wealth of experience in real estate, finance, and
 
 ![Residential towers along Dubai Marina, boats moored at the quay in morning light](https://www.think.cy/media/mearina-1800.webp)
 
-Investment opportunities
-
 ## Discover properties that define prestige.
 
 Think Real opens the door to exclusive investments in Cyprus, Greece and the Middle East, where natural beauty, economic growth, and lifestyle converge.

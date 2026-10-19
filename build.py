@@ -136,11 +136,10 @@ AGENT_NOT_FOR = [
 # Six bands, not one panel: they clear left to right, top band first, so the
 # page is uncovered on a diagonal rather than swapped in behind one curtain.
 PRELOADER = ('<div class="pre" id="pre" data-theme="dark" aria-hidden="true">'
-             '<div class="pre__bands" id="preBands">'
-             '<i></i><i></i><i></i><i></i><i></i><i></i>'
-             '</div>'
-             '<div class="pre__foot" id="preFoot">'
-             '<span class="pre__n" id="preN">00</span>'
+             '<i class="pre__half pre__half--t" id="preT"></i>'
+             '<i class="pre__half pre__half--b" id="preB"></i>'
+             '<div class="pre__mark" id="preMark">'
+             '<span class="pre__word">thinkReal</span>'
              '<span class="pre__rule" id="preRule"></span>'
              '</div></div>')
 

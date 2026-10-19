@@ -8,19 +8,13 @@ Source: https://www.think.cy/middleeast.html
 
 ![Downtown Dubai in daylight: the Burj Khalifa above the Sheikh Zayed Road interchange](https://www.think.cy/media/middleeast-1920.webp)
 
-Metropolitan
-
 One city at a time.
-
-The case
 
 ## Not one market. Read it city by city.
 
 Each city sets its own rules.
 
 ![A contemporary residential tower with curved balconies against a pale sky](https://www.think.cy/media/tower-1100.webp)
-
-A residential tower in the Gulf.
 
 Dubai prices and yields, by community
 
@@ -48,17 +42,9 @@ Figures from October 2026, Dubai Land Department. Net yield is 1.5 to 2.5 points
 
 ![Dubai Marina from above: towers ranged around the water, the sea beyond](https://www.think.cy/media/memarina-1800.webp)
 
-Dubai Marina from above.
-
 ![High-rise towers along the Dubai Marina waterfront, palms lining the promenade below](https://www.think.cy/media/mepromenade-1800.webp)
 
-The promenade at the foot of the towers, Dubai Marina.
-
 ![A shaded terrace on Palm Jumeirah looking along the water to the moored boats and the towers beyond](https://www.think.cy/media/meterrace-1800.webp)
-
-A terrace above the water, Palm Jumeirah.
-
-The consultation
 
 ## Talk to us about Dubai.
 

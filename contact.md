@@ -6,8 +6,6 @@ Source: https://www.think.cy/contact.html
 
 ---
 
-Contact us
-
 # Invest with purpose. Invest with style.
 
 Office Louki Akrita 8, Office 2023030 Limassol, Cyprus Telephone +357 25 107 444 +357 99 344 457 Email info@think.cy
